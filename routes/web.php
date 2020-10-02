@@ -13,12 +13,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DashboardController@index');
+Route::get('/', 'LoginController@index');
+
+Route::get('dashboard', 'DashboardController@index');
+
+Route::post('login', 'LoginController@login');
+
+Route::get('logout', 'LoginController@logout');
 
 Route::get('msg', 'DashboardController@msg');
 
-Route::get('msg/send', 'DashboardController@sendMsg');
+Route::get('send-msg', 'DashboardController@sendMsg');
 
-Route::get('user/add', 'DashboardController@addUser');
+Route::prefix('akun')->group(function(){
+    
+    Route::get('', 'UserController@index');
+    
+    Route::get('tambah', 'UserController@add');
 
-Route::post('user/store', 'DashboardController@storeUser');
+    Route::post('store', 'UserController@store');
+
+});
+
+Route::prefix('pasien')->group(function(){
+    
+    Route::get('', 'PasienController@index');
+    
+    Route::get('tambah', 'PasienController@add');
+
+    Route::post('store', 'PasienController@store');
+
+});

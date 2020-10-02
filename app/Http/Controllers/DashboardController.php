@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Users;
+use App\Pasien;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('index')->with('title', 'Dashboard');
+        return view('dashboard')->with('title', 'WhatsApp API');
     }
 
     public function msg()
@@ -22,74 +25,46 @@ class DashboardController extends Controller
     public function sendMsg(/*Request $req*/)
     {
         $user = Users::get();
-        // return $user[0]->phone;
-        for($i=0;$i<sizeof($user);$i++){
-            $mobile=$user[$i]->phone;
-            $message=$user[$i]->name.", ".$user[$i]->obat;
-            $data = [
-                'phone' => $mobile, // Receivers phone
-                'body' => $message, // Message
-            ];
-        
-            $json = json_encode($data); // Encode data to JSON
-            // URL for request POST /message
-            $url = 'https://eu54.chat-api.com/instance176181/message?token=vuiodfsprq255oa6';
-            // Make a POST request
-            $options = stream_context_create(['http' => [
-                    'method'  => 'POST',
-                    'header'  => 'Content-type: application/json',
-                    'content' => $json
-                ]
-            ]);
-            // Send a request
-            $result = file_get_contents($url, false, $options);
-        }
-        // $this->validate($req,[  
-        //     'no' => 'required',
-        //     'msg' => 'required'
-        // ]);
-        // $mobile=$req->no;
-        // $message=$req->msg;
+        //Chat API
+        // for($i=0;$i<sizeof($user);$i++){
+        //     $mobile=$user[$i]->phone;
+        //     $message=$user[$i]->name.", ".$user[$i]->obat;
         //     $data = [
         //         'phone' => $mobile, // Receivers phone
         //         'body' => $message, // Message
         //     ];
-        // $json = json_encode($data); // Encode data to JSON
-        // // URL for request POST /message
-        // $url = 'https://eu54.chat-api.com/instance176181/message?token=vuiodfsprq255oa6';
-        // // Make a POST request
-        // $options = stream_context_create(['http' => [
-        //         'method'  => 'POST',
-        //         'header'  => 'Content-type: application/json',
-        //         'content' => $json
-        //     ]
-        // ]);
-        // // Send a request
-        // $result = file_get_contents($url, false, $options);
-        // print_r($result);
-    }
-
-    public function addUser()
-    {
-        return view('users.add')->with('title', 'Tambah User');
-    }
-
-    public function storeUser(Request $req)
-    {
-        $this->validate($req,[  
-            'nama' => 'required|min:3|max:50',
-            'username' => 'required|min:4|max:30',
-            'password' => 'required|min:4',
-            'phone' => 'required'
-        ]);
         
-        DB::table('users')->insert([
-            'name' => $req->nama,
-            'username' => $req->username,
-            'password' => Hash::make($req->password),
-            'phone' => $req->phone
-        ]);
+        //     $json = json_encode($data); // Encode data to JSON
+        //     // URL for request POST /message
+        //     $url = 'https://eu54.chat-api.com/instance176181/message?token=vuiodfsprq255oa6';
+        //     // Make a POST request
+        //     $options = stream_context_create(['http' => [
+        //             'method'  => 'POST',
+        //             'header'  => 'Content-type: application/json',
+        //             'content' => $json
+        //         ]
+        //     ]);
+        //     // Send a request
+        //     $result = file_get_contents($url, false, $options);
+        // }
+        $pasien = Pasien::all();
+		// return $req->id_device;
+		$client = new Client();
 
-        return redirect('/');
+		for($i=0;$i<count($pasien);$i++){
+			$no = $pasien[$i]['phone'];
+			$nama = $pasien[$i]['nama'];
+			$pesan = $nama.' '.$pasien[$i]['pesan'].' setiap jam 12 siang.';
+			
+			$r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+				'form_params' => [
+					'id_device' => '11',
+					'to' => $no,
+					'pesan' => $pesan
+				]
+			]);
+		}
+		return redirect('/');
     }
+
 }

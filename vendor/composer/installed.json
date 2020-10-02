@@ -939,39 +939,46 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "6.5.5",
-        "version_normalized": "6.5.5.0",
+        "version": "7.0.0",
+        "version_normalized": "7.0.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "9d4290de1cfd701f38099ef7e183b64b4b7b0c5e"
+            "reference": "414c24961042f6616fb43e23fa69a785f9fc053e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9d4290de1cfd701f38099ef7e183b64b4b7b0c5e",
-            "reference": "9d4290de1cfd701f38099ef7e183b64b4b7b0c5e",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/414c24961042f6616fb43e23fa69a785f9fc053e",
+            "reference": "414c24961042f6616fb43e23fa69a785f9fc053e",
             "shasum": ""
         },
         "require": {
             "ext-json": "*",
             "guzzlehttp/promises": "^1.0",
             "guzzlehttp/psr7": "^1.6.1",
-            "php": ">=5.5",
-            "symfony/polyfill-intl-idn": "^1.17.0"
+            "php": "^7.2.5",
+            "psr/http-client": "^1.0"
+        },
+        "provide": {
+            "psr/http-client-implementation": "1.0"
         },
         "require-dev": {
+            "ergebnis/composer-normalize": "^2.0",
             "ext-curl": "*",
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
+            "php-http/client-integration-tests": "dev-phpunit8",
+            "phpunit/phpunit": "^8.5.5",
             "psr/log": "^1.1"
         },
         "suggest": {
+            "ext-curl": "Required for CURL handler support",
+            "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2020-06-16T21:01:06+00:00",
+        "time": "2020-06-27T08:47:54+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "6.5-dev"
+                "dev-master": "7.0-dev"
             }
         },
         "installation-source": "dist",
@@ -992,6 +999,11 @@
                 "name": "Michael Dowling",
                 "email": "mtdowling@gmail.com",
                 "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Márk Sági-Kazár",
+                "email": "mark.sagikazar@gmail.com",
+                "homepage": "https://sagikazarmark.hu"
             }
         ],
         "description": "Guzzle is a PHP HTTP client library",
@@ -1002,6 +1014,8 @@
             "framework",
             "http",
             "http client",
+            "psr-18",
+            "psr-7",
             "rest",
             "web service"
         ]
@@ -2805,7 +2819,8 @@
         "homepage": "https://github.com/sebastianbergmann/php-token-stream/",
         "keywords": [
             "tokenizer"
-        ]
+        ],
+        "abandoned": true
     },
     {
         "name": "phpunit/phpunit",
@@ -2999,6 +3014,57 @@
             "events",
             "psr",
             "psr-14"
+        ]
+    },
+    {
+        "name": "psr/http-client",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-client.git",
+            "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+            "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0 || ^8.0",
+            "psr/http-message": "^1.0"
+        },
+        "time": "2020-06-29T06:28:15+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Client\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP clients",
+        "homepage": "https://github.com/php-fig/http-client",
+        "keywords": [
+            "http",
+            "http-client",
+            "psr",
+            "psr-18"
         ]
     },
     {
@@ -3417,6 +3483,92 @@
             {
                 "url": "https://github.com/ramsey",
                 "type": "github"
+            }
+        ]
+    },
+    {
+        "name": "realrashid/sweet-alert",
+        "version": "v3.1.7",
+        "version_normalized": "3.1.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/realrashid/sweet-alert.git",
+            "reference": "94415e288bf38e482cc645030800c0a8591c9624"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/94415e288bf38e482cc645030800c0a8591c9624",
+            "reference": "94415e288bf38e482cc645030800c0a8591c9624",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "^5.4|^6.0|^7.0|^8.0",
+            "php": "^7.2"
+        },
+        "require-dev": {
+            "symfony/thanks": "^1.0"
+        },
+        "time": "2020-09-09T15:24:03+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "RealRashid\\SweetAlert\\SweetAlertServiceProvider"
+                ],
+                "aliases": {
+                    "Alert": "RealRashid\\SweetAlert\\Facades\\Alert"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "RealRashid\\SweetAlert\\": "src/"
+            },
+            "files": [
+                "src/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Rashid Ali",
+                "email": "realrashid05@gmail.com",
+                "homepage": "https://realrashid.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A BEAUTIFUL, RESPONSIVE, CUSTOMIZABLE, ACCESSIBLE (WAI-ARIA) REPLACEMENT FOR JAVASCRIPT'S POPUP BOXES FOR LARAVEL BY RASHID ALI",
+        "homepage": "https://github.com/realrashid/sweet-alert",
+        "keywords": [
+            "alert",
+            "laravel",
+            "laravel-package",
+            "notifier",
+            "noty",
+            "sweet-alert",
+            "sweet-alert2",
+            "toast"
+        ],
+        "funding": [
+            {
+                "url": "https://ko-fi.com/realrashid",
+                "type": "custom"
+            },
+            {
+                "url": "https://www.buymeacoffee.com/realrashid",
+                "type": "custom"
+            },
+            {
+                "url": "https://issuehunt.io/r/realrashid",
+                "type": "issuehunt"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/realrashid/sweet-alert",
+                "type": "tidelift"
             }
         ]
     },
