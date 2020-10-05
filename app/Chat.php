@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class Chat extends Model
 {
-    protected $table='tb_user';
+    protected $table = 'chat';
 }

@@ -11,12 +11,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('users.index')->with('title', 'Lihat User');
+        return view('users.index')->with('app_title', 'WhatsApp API')->with('title', 'Lihat akun');
     }
 
     public function add()
     {
-        return view('users.add')->with('title', 'Tambah User');
+        return view('users.add')->with('app_title', 'WhatsApp API')->with('title', 'Tambah akun');
     }
 
     public function storeUser(Request $req)
@@ -36,6 +36,11 @@ class UserController extends Controller
         ]);
 
         return redirect('/');
+    }
+
+    public function edit($id)
+    {
+        return view('users.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit akun');
     }
 
 }

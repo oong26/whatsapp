@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Users;
 use Alert;
 
@@ -30,6 +31,10 @@ class LoginController extends Controller
         
         if($data){
             if(Hash::check($passwod, $data->password)){
+                Session::put('user_id', $data->id);
+                Session::put('nama', $data->nama);
+                Session::put('email', $data->email);
+                
                 alert()->success('Sukses', 'Berhasil login');
                 return redirect('dashboard');
             }

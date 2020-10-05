@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Users;
 use App\Pasien;
+use App\Chat;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
@@ -14,7 +15,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard')->with('title', 'WhatsApp API');
+        $users = Users::all();
+        $pasien = Pasien::orderBy('id', 'DESC')->get();
+        $chat = Chat::where('status', 'mengirim pesan')->get();
+
+        $data = array(
+            'data_pasien' => $pasien,
+            'users' => count($users),
+            'pasien' => count($pasien),
+            'chat' => count($chat)
+        );
+
+        return view('dashboard')->with('app_title', 'WhatsApp API')->with('title', 'Dashboard')->with('data', $data);
     }
 
     public function msg()
