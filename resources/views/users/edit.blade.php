@@ -13,16 +13,10 @@
               <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{url('pasien/update')}}" method="post">
+                <form action="{{url('akun/update')}}" method="post">
                     @csrf
                     @foreach ($data as $item)
                     <input type="hidden" name="id" value="{{$item['id']}}">
-                    <div class="form-group row ml-2">
-                        <label for="nik">NIK</label>
-                        <div class="col-sm-6">
-                        <input type="text" name="nik" id="nik" class="form-control" value="{{$item['nik']}}">  
-                        </div>
-                    </div>
                     <div class="form-group row ml-2">
                         <label for="nama">Nama</label>
                         <div class="col-sm-6">
@@ -37,21 +31,35 @@
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
-                            <label class="mr-xl-5" for="phone">No. telp</label>
-                            62
-                            <input type="text" name="phone" id="phone" class="form-control ml-2" value="{{substr($item['phone'], 2)}}">  
+                            <label class="mr-xl-5" for="email">Email</label>
+                            <input type="text" name="email" id="email" class="form-control ml-2" value="{{$item['email']}}">  
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
-                            <label class="mr-xl-5" for="resep">Resep</label>
-                            <textarea name="resep" id="resep" cols="40" rows="5" class="form-control">{{$item['resep']}}</textarea>  
+                            <label class="mr-xl-5" for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" value="{{$item['username']}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
-                            <label class="mr-xl-5" for="tgl">Tanggal HPHT</label>
-                            <input type="date" name="tgl" id="tgl" class="form-control">
+                            <label class="mr-xl-5" for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label class="mr-xl-5" for="level">Wewenang</label>
+                            <select name="level" id="level" class="form-control"> 
+                                <option value="">Pilih wewenang</option>
+                                @if($item['level'] == 0)
+                                <option value="1">Admin</option>
+                                <option value="0" selected>User</option>
+                                @else
+                                <option value="1" selected>Admin</option>
+                                <option value="0">User</option>
+                                @endif
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,9 +78,7 @@
                         </div>
                     </div>
                     @endforeach
-                    <a class="text-decoration-none btn btn-danger" href="{{url('pasien')}}">
-                        Batal
-                    </a>
+                    <a href="{{url('akun')}}" class="text-decoration-none btn btn-danger">Batal</a>
                     <input type="submit" value="Perbarui" class="btn btn-primary">
                 </form>
             </div>

@@ -13,14 +13,8 @@
               <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{url('pasien/store')}}" method="post">
+                <form action="{{url('akun/store')}}" method="post">
                     @csrf
-                    <div class="form-group row ml-2">
-                        <label for="nik">NIK</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="nik" id="nik" class="form-control">  
-                        </div>
-                    </div>
                     <div class="form-group row ml-2">
                         <label for="nama">Nama</label>
                         <div class="col-sm-6">
@@ -35,21 +29,30 @@
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
-                            <label class="mr-xl-5" for="phone">No. telp</label>
-                            62
-                            <input type="text" name="phone" id="phone" class="form-control ml-2">  
+                            <label class="mr-xl-5" for="email">Email</label>
+                            <input type="text" name="email" id="email" class="form-control ml-2">  
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
-                            <label class="mr-xl-5" for="resep">Resep</label>
-                            <textarea name="resep" id="resep" cols="40" rows="5" class="form-control"></textarea>  
+                            <label class="mr-xl-5" for="username">Username</label>
+                            <input type="text" name="username" id="username">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
-                            <label class="mr-xl-5" for="tgl">Tanggal HPHT</label>
-                            <input type="date" name="tgl" id="tgl" class="form-control">
+                            <label class="mr-xl-5" for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label class="mr-xl-5" for="level">Wewenang</label>
+                            <select name="level" id="level" class="form-control"> 
+                                <option value="">Pilih wewenang</option>
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
                         </div>
                     </div>
                     <input type="reset" value="Batal" class="btn btn-danger">

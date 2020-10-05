@@ -70,9 +70,7 @@
                         </div>
                     </div>
                     @endforeach
-                    <a class="text-decoration-none btn btn-danger" href="{{url('pasien')}}">
-                        Batal
-                    </a>
+                    <a class="text-decoration-none btn btn-danger" href="{{url('pasien')}}">Batal</a>
                     <input type="submit" value="Perbarui" class="btn btn-primary">
                 </form>
             </div>
