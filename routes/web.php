@@ -27,9 +27,9 @@ Route::get('send-msg', 'DashboardController@sendMsg');
 
 Route::prefix('profil')->group(function(){
     
-    Route::get('edit/{id}', 'ProfilController@edit');
+    Route::get('edit/{id}', 'ProfileController@edit');
 
-    Route::post('update', 'ProfilController@update');
+    Route::post('update', 'ProfileController@update');
 
 });
 
