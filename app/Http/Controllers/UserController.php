@@ -47,7 +47,7 @@ class UserController extends Controller
             return redirect('akun');
         }
         catch(\Illuminate\Database\QueryException $e){
-            alert()->error('Error', $e->getMessage());
+            alert()->error('Error', 'Gagal');
             return redirect()->back();
         }
 

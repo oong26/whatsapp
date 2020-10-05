@@ -34,6 +34,7 @@ class LoginController extends Controller
                 Session::put('user_id', $data->id);
                 Session::put('nama', $data->nama);
                 Session::put('email', $data->email);
+                Session::put('level', $data->level);
                 
                 alert()->success('Sukses', 'Berhasil login');
                 return redirect('dashboard');
@@ -51,6 +52,7 @@ class LoginController extends Controller
 
     public function logout()
     {
+        Session::flush();
         return redirect('/');
     }
 }
