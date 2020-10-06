@@ -27,10 +27,10 @@
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
-      <div class="col-xl-8 col-lg-10 col-md-8">
+      <div class="col-xl-8 col-lg-10 col-md-8 m-5">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
+          <div class="card-body p-2">
             <!-- Nested Row within Card Body -->
             <div class="row">
               {{-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> --}}
@@ -44,9 +44,11 @@
                       @csrf
                     <div class="form-group">
                       <input type="text" class="form-control form-control-user" id="inputUsername" name="username" placeholder="Masukkan Username">
+                      <small id="inputUsername" style="color:red;" class="ml-2 form-text ">{{$errors->first('username')}}</small>
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" id="inputPassword" name="password" placeholder="Masukkan Password">
+                      <small id="inputPassword" style="color:red;" class="ml-2 form-text ">{{$errors->first('password')}}</small>
                     </div>
                     {{-- <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -56,10 +58,6 @@
                     </div> --}}
                     <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
                   </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
                 </div>
               </div>
             </div>
