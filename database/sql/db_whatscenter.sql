@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2020 at 07:23 PM
+-- Generation Time: Oct 09, 2020 at 08:57 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -1262,10 +1262,10 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id`, `nama`, `alamat`, `ket`, `email`, `password`, `level`, `status`, `token`, `username`, `id_kantor`) VALUES
-(9, 'Mamat', '', NULL, 'mamat@gmail.com', '$2y$10$ArSsg6qKwDP8MAfCnHAj0.IVJu3lmV4xO.ggKNH5SQ9PNf153Roa2', 1, '1', NULL, 'mamat', 0),
+(9, 'Mamat', '', NULL, 'mamat@gmail.com', '123456', 1, '1', NULL, 'mamat', 0),
 (62, 'Ternak Pungli', '', NULL, 'ternakpungli@gmail.com', '12345', 1, '1', NULL, 'testa', 0),
 (63, 'Bupati', '', NULL, 'cbpati@gmail.com', 'cbpati', 2, '1', NULL, 'cbpati', 2),
-(64, 'Pak ternak', '', NULL, 'ternakpungli@gmail.com', 'admina', 2, '1', NULL, 'admin', 1);
+(66, 'pak haji', 'bondowoso', NULL, 'pakkos@gmail.com', '$2y$10$5jwHPcukN6XAP6AXF.nZtO58ByU8HG0JLETBQT7.yVUfQ/1IJnmVG', 1, '1', NULL, 'kos', NULL);
 
 --
 -- Indexes for dumped tables
@@ -1417,7 +1417,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

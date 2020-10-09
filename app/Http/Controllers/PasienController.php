@@ -37,7 +37,7 @@ class PasienController extends Controller
     {
         if(Session::get('user_id') != null){
             $this->validate($req,[
-                        'nik' => 'required|min:16|max:16',
+                        'nik' => 'required|min:16|max:16|unique:pasien',
                         'nama' => 'required|min:3|max:50',
                         'alamat' => 'required',
                         'phone' => 'required',
@@ -45,17 +45,26 @@ class PasienController extends Controller
             ]);
 
             try{
-                DB::table('pasien')->insert([
-                    'nik' => $req->nik,
-                    'nama' => $req->nama,
-                    'alamat' => $req->alamat,
-                    'phone' => '62'.$req->phone,
-                    'resep' => $req->resep,
-                    'tgl_hpht' => $req->tgl
-                ]);
-                
-                alert()->success('Sukses', 'Berhasil menyimpan data');
-                return redirect('pasien');
+                $phoneIsExists = Pasien::where('phone', '62'.$req->phone)->first();
+                if($phoneIsExists){
+                    // Nomor telah digunakan
+                    alert()->error('Error', 'Nomor telah digunakan');
+                    return redirect()->back();
+                }
+                else{
+                    //Nomor tersedia
+                    DB::table('pasien')->insert([
+                        'nik' => $req->nik,
+                        'nama' => $req->nama,
+                        'alamat' => $req->alamat,
+                        'phone' => '62'.$req->phone,
+                        'resep' => $req->resep,
+                        'tgl_hpht' => $req->tgl
+                    ]);
+                    
+                    alert()->success('Sukses', 'Berhasil menyimpan data');
+                    return redirect('pasien');
+                }
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', 'Gagal');
