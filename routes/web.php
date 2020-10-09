@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Auth::routes();
 
-Route::get('/', 'LoginController@index');
+Route::get('/', 'DashboardController@index');
 
 Route::get('dashboard', 'DashboardController@index');
 
-Route::post('login', 'LoginController@login');
+Route::get('login', 'LoginController@index');
+
+Route::post('login-process', 'LoginController@login');
 
 Route::get('logout', 'LoginController@logout');
 
@@ -27,7 +30,7 @@ Route::get('send-msg', 'DashboardController@sendMsg');
 
 Route::prefix('profil')->group(function(){
     
-    Route::get('edit/{id}', 'ProfileController@edit');
+    Route::get('edit/{id}', 'ProfileController@index');
 
     Route::post('update', 'ProfileController@update');
 

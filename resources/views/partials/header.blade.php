@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{$app_title}}</title>
+  <title>Whatsapp | API</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{url('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">

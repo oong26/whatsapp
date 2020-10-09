@@ -6,7 +6,7 @@
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
-      <div class="sidebar-brand-text mx-3">{{$app_title}}</div>
+      <div class="sidebar-brand-text mx-3">Whatsapp | API</div>
     </a>
 
     <!-- Divider -->
@@ -82,7 +82,7 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-      <a class="nav-link" href="whatsapp">
+      <a class="nav-link" href="http://localhost:8000/" target="_blank">
         <i class="fas fa-fw fa-phone-alt"></i>
         <span>WhatsApp</span></a>
     </li>

@@ -9,42 +9,52 @@ use App\Users;
 
 class ProfileController extends Controller
 {
-    public function edit($id)
+    public function index($id)
     {
-        $data = Users::where('id', $id)->get();
-        
-        return view('profile.index')->with('app_title', 'WhatsApp API')->with('title', 'Lihat akun')->with('data', $data);
+        if(Session::get('user_id') != null){
+            $data = Users::where('id', $id)->get();
+            
+            return view('profile.index')->with('app_title', 'WhatsApp API')->with('title', 'Lihat akun')->with('data', $data);
+        }
+        else{
+            return redirect('login');
+        }
     }
 
     public function update(Request $req)
     {
-        $this->validate($req, [
-            'nama' => 'required|min:3|max:50'
-        ]);
-
-        try{
-            $id = Session::get('user_id');
-            
-            if($id != null){
-                DB::table('tb_user')->where('id', $id)->update([
-                    'nama' => $req->nama,
-                    'alamat' => $req->alamat,
-                    'updated_at' => now()
-                ]);
-
-                session()->put('nama', $req->nama);
+        if(Session::get('user_id') != null){
+            $this->validate($req, [
+                'nama' => 'required|min:3|max:50'
+            ]);
+    
+            try{
+                $id = Session::get('user_id');
+                
+                if($id != null){
+                    DB::table('tb_user')->where('id', $id)->update([
+                        'nama' => $req->nama,
+                        'alamat' => $req->alamat,
+                        'updated_at' => now()
+                    ]);
+    
+                    session()->put('nama', $req->nama);
+                }
+                else{
+                    alert()->error('Error', 'Gagal');
+                    return redirect('/');
+                }
+                
+                alert()->success('Sukses', 'Berhasil memperbarui profil');
+                return redirect('dashboard');
             }
-            else{
-                alert()->error('Error', 'Gagal');
-                return redirect('/');
+            catch(\Illuminate\Database\QueryException $e){
+                alert()->error('Error', $e->getMessage());
+                return redirect()->back();
             }
-            
-            alert()->success('Sukses', 'Berhasil memperbarui profil');
-            return redirect('dashboard');
         }
-        catch(\Illuminate\Database\QueryException $e){
-            alert()->error('Error', $e->getMessage());
-            return redirect()->back();
+        else{
+            return redirect('login');
         }
     }
 }

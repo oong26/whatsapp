@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -48,8 +49,13 @@ class Handler extends ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        return parent::render($request, $exception);
+        // if ($this->isHttpException($e)) {
+        //     return $this->renderHttpException($e);
+        // } else {
+        //     return parent::render($request, $e);
+        // }
+        return parent::render($request, $e);
     }
 }

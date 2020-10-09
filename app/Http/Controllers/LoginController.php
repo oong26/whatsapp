@@ -13,7 +13,12 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('index')->with('title', 'Login');
+        if(Session::get('user_id') != null){
+            return redirect('/');
+        }
+        else{
+            return view('login')->with('title', 'Login');
+        }
     }
 
     public function login(Request $req)
@@ -22,7 +27,7 @@ class LoginController extends Controller
             'username' => 'required|min:4|max:30',
             'password' => 'required|min:4'
         ]);
-
+            
         $username = $req->username;
         $passwod = $req->password;
 
@@ -61,6 +66,6 @@ class LoginController extends Controller
     public function logout()
     {
         Session::flush();
-        return redirect('/');
+        return redirect('login');
     }
 }

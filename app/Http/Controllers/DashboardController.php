@@ -11,28 +11,34 @@ use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $users = Users::all();
-        $pasien = Pasien::orderBy('id', 'DESC')->get();
-        $chat = Chat::where('status', 'mengirim pesan')->get();
+        if(Session::get('user_id') != null){
+            $users = Users::all();
+            $pasien = Pasien::orderBy('id', 'DESC')->get();
+            $chat = Chat::where('status', 'mengirim pesan')->get();
 
-        $data = array(
-            'data_pasien' => $pasien,
-            'users' => count($users),
-            'pasien' => count($pasien),
-            'chat' => count($chat)
-        );
+            $data = array(
+                'data_pasien' => $pasien,
+                'users' => count($users),
+                'pasien' => count($pasien),
+                'chat' => count($chat)
+            );
 
-        return view('dashboard')->with('app_title', 'WhatsApp API')->with('title', 'Dashboard')->with('data', $data);
+            return view('index')->with('app_title', 'WhatsApp API')->with('title', 'Dashboard')->with('data', $data);
+        }
+        else{
+            return redirect('login');
+        }
     }
 
     public function msg()
     {
-        return view('msg')->with('title', 'Pesan');
+        return view('msg')->with('title','Pesan');
     }
 
     public function sendMsg(/*Request $req*/)
@@ -77,7 +83,7 @@ class DashboardController extends Controller
 				]
 			]);
 		}
-		return redirect('/');
+		return redirect('msg');
     }
 
 }

@@ -35,7 +35,7 @@
         <div class="modal-body">Pilih "Logout" jika anda akan keluar.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-          <a class="btn btn-primary" href="logout">Logout</a>
+          <a class="btn btn-primary" href="{{url('logout')}}">Logout</a>
         </div>
       </div>
     </div>
@@ -62,6 +62,13 @@
 <!-- Page level custom scripts -->
 <script src="{{url('assets/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{url('assets/js/demo/chart-pie-demo.js')}}"></script>
+
+<script language="javascript" type="text/javascript">
+  function windowClose() {
+  window.open('','_parent','');
+  window.close();
+  }
+</script>
 
 </body>
 
