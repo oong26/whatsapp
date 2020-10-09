@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PasienExport;
 use App\Pasien;
 
 class PasienController extends Controller
@@ -148,6 +150,19 @@ class PasienController extends Controller
                 alert()->error('Error', $e->getMessage());
                 return redirect()->back();
             }
+        }
+        else{
+            return redirect('login');
+        }
+    }
+
+    public function export()
+    {
+        if(Session::get('user_id') != null){
+            // return Excel::download(new PasienExport,'pasien.xlsx');
+            $data = Pasien::select('nama','phone')->get();
+
+            return Excel::download(new PasienExport($data),'pasien.xlsx');
         }
         else{
             return redirect('login');

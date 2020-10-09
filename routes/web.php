@@ -66,4 +66,6 @@ Route::prefix('pasien')->group(function(){
 
     Route::post('update', 'PasienController@update');
 
+    Route::get('export', 'PasienController@export');
+
 });

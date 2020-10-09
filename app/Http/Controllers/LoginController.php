@@ -14,7 +14,6 @@ class LoginController extends Controller
 {
     public function index()
     {
-        $data = Pasien::select('')
         if(Session::get('user_id') != null){
             return redirect('/');
         }
