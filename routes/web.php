@@ -69,3 +69,19 @@ Route::prefix('pasien')->group(function(){
     Route::get('export', 'PasienController@export');
 
 });
+
+Route::prefix('bidan')->group(function(){
+    
+    Route::get('', 'BidanController@index');
+    
+    Route::get('tambah', 'BidanController@add');
+
+    Route::post('store', 'BidanController@store');
+    
+    Route::get('edit/{id}', 'BidanController@edit');
+    
+    Route::get('delete/{id}', 'BidanController@delete');
+
+    Route::post('update', 'BidanController@update');
+
+});

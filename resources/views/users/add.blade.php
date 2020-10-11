@@ -62,7 +62,9 @@
                         </div>
                     </div>
                     <div class="form-group float-right">
-                        <input type="reset" value="Batal" class="btn btn-danger">
+                        <a class="text-decoration-none" href="{{url('akun')}}">
+                            <input class="btn btn-danger" type="button" value="Batal">
+                        </a>
                         <input type="submit" value="Tambah" class="btn btn-primary">
                     </div>
                 </form>

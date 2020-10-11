@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PasienExport;
 use App\Pasien;
+use App\Bidan;
 
 class PasienController extends Controller
 {
@@ -26,7 +27,9 @@ class PasienController extends Controller
     public function add()
     {
         if(Session::get('user_id') != null){
-            return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien');
+            $bidan = Bidan::all();
+            
+            return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien')->with('bidan', $bidan);
         }
         else{
             return redirect('login');
@@ -41,7 +44,8 @@ class PasienController extends Controller
                         'nama' => 'required|min:3|max:50',
                         'alamat' => 'required',
                         'phone' => 'required',
-                        'resep' => 'required'
+                        'resep' => 'required',
+                        'bidan' => 'required'
             ]);
 
             try{
@@ -59,7 +63,8 @@ class PasienController extends Controller
                         'alamat' => $req->alamat,
                         'phone' => '62'.$req->phone,
                         'resep' => $req->resep,
-                        'tgl_hpht' => $req->tgl
+                        'tgl_hpht' => $req->tgl,
+                        'id_bidan' => $req->bidan
                     ]);
                     
                     alert()->success('Sukses', 'Berhasil menyimpan data');
@@ -119,7 +124,8 @@ class PasienController extends Controller
                 'alamat' => 'required',
                 'phone' => 'required',
                 'resep' => 'required',
-                'status' => 'required'
+                'status' => 'required',
+                'bidan' => 'required'
             ]);
 
             try{
@@ -148,6 +154,13 @@ class PasienController extends Controller
                 if($req->status != null){
                     DB::table('pasien')->where('id',$req->id)->update([
                         'status' => $req->status,
+                        'updated_at' => now()
+                    ]);
+                }
+
+                if($req->bidan != null){
+                    DB::table('pasien')->where('id',$req->id)->update([
+                        'id_bidan' => $req->bidan,
                         'updated_at' => now()
                     ]);
                 }

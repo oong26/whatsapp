@@ -73,11 +73,11 @@ class DashboardController extends Controller
 		for($i=0;$i<count($pasien);$i++){
 			$no = $pasien[$i]['phone'];
 			$nama = $pasien[$i]['nama'];
-			$pesan = $nama.' '.$pasien[$i]['pesan'].' setiap jam 12 siang.';
+			$pesan = $nama.' '.$pasien[$i]['pesan'].'. Dengan resep dibawah ini : \n'.$pasien[$i]['resep']. ' \nPesan diterima setiap jam 19.00.';
 			
 			$r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
 				'form_params' => [
-					'id_device' => '11',
+					'id_device' => '10',
 					'to' => $no,
 					'pesan' => $pesan
 				]

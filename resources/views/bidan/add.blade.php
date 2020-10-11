@@ -13,15 +13,8 @@
               <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{url('pasien/store')}}" method="post">
+                <form action="{{url('bidan/store')}}" method="post">
                     @csrf
-                    <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="nik">NIK</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nik" id="nik" class="form-control" value="{{old('nik')}}">  
-                            <small id="nik" style="color:red;" class="ml-2 form-text">{{$errors->first('nik')}}</small>
-                        </div>
-                    </div>
                     <div class="form-group row ml-2">
                         <label class="col-sm-2" for="nama">Nama</label>
                         <div class="col-sm-10">
@@ -43,34 +36,8 @@
                             <small id="phone" style="color:red;" class="ml-2 form-text ">{{$errors->first('phone')}}</small>
                         </div>
                     </div>
-                    <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="resep">Resep</label>
-                        <div class="col-sm-10">
-                            <textarea name="resep" id="resep" cols="40" rows="5" class="form-control">{{old('resep')}}</textarea> 
-                            <small id="resep" style="color:red;" class="ml-2 form-text ">{{$errors->first('resep')}}</small> 
-                        </div>
-                    </div>
-                    <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="tgl">Tanggal HPHT</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="tgl" id="tgl" class="form-control" value="{{old('tgl')}}">
-                            <small id="tgl" style="color:red;" class="ml-2 form-text ">{{$errors->first('tgl')}}</small>
-                        </div>
-                    </div>
-                    <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="bidan">Bidan</label>
-                        <div class="col-sm-10">
-                            <select name="bidan" id="bidan" class="form-control">
-                                <option value="">Pilih bidan</option>
-                                @foreach ($bidan as $item)
-                                    <option value="{{$item->id_bidan}}">{{$item->nama}}</option>
-                                @endforeach
-                            </select>
-                            <small id="bidan" style="color:red;" class="ml-2 form-text ">{{$errors->first('bidan')}}</small>
-                        </div>
-                    </div>
                     <div class="form-group float-right">
-                        <a class="text-decoration-none" href="{{url('pasien')}}">
+                        <a class="text-decoration-none" href="{{url('bidan')}}">
                             <input class="btn btn-danger" type="button" value="Batal">
                         </a>
                         <input type="submit" value="Tambah" class="btn btn-primary">
