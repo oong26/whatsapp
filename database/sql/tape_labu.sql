@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2020 at 03:35 PM
+-- Generation Time: Oct 13, 2020 at 08:11 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -143,7 +143,7 @@ CREATE TABLE `device` (
 
 INSERT INTO `device` (`id`, `nama_device`, `status`, `id_user`, `pushname`, `wid`, `batteray`, `plugged`, `wa_version`, `mcc`, `mnc`, `os_version`, `device_manufacturer`, `device_model`, `os_build_number`, `hide`) VALUES
 (10, '6285331053300', 'device not connected', 9, 'oong', '6285331053300@c.us', NULL, NULL, '2.20.193.9', NULL, NULL, '5.1', 'OPPO', 'A33w', 'A33wEX_11_190306', 0),
-(11, '6285156623438', 'connected', 9, 'Oopen Minded', '[Unknown]', NULL, NULL, 'undefined', NULL, NULL, 'undefined', 'undefined', 'undefined', 'undefined', 0);
+(11, '6285156623438', 'connected', 9, 'Oopen Minded', '6285156623438@c.us', NULL, NULL, '2.20.200.22', NULL, NULL, '5.1', 'OPPO', 'A33w', 'A33wEX_11_190306', 0);
 
 -- --------------------------------------------------------
 
@@ -358,7 +358,7 @@ CREATE TABLE `level` (
 --
 
 INSERT INTO `level` (`id_level`, `nama_level`, `wilayah`) VALUES
-(1, 'Bidan Induk', 'Puskesmas Binakal'),
+(1, 'Super Admin', 'Puskesmas Binakal'),
 (2, 'Bidan Desa', 'Baratan'),
 (3, 'Bidan Desa', 'Bendelan');
 
@@ -1275,7 +1275,7 @@ INSERT INTO `log_ack` (`id_ack`, `id`, `body`, `tp`, `dari`, `untuk`, `self`, `a
 CREATE TABLE `pasien` (
   `id` int(5) NOT NULL,
   `nik` varchar(16) NOT NULL,
-  `kis` varchar(50) NOT NULL,
+  `kis` varchar(20) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL,
@@ -1283,7 +1283,7 @@ CREATE TABLE `pasien` (
   `pesan` varchar(255) DEFAULT NULL,
   `tgl_hpht` datetime NOT NULL DEFAULT current_timestamp(),
   `tgl_hpl` datetime NOT NULL DEFAULT current_timestamp(),
-  `id_bidan` int(3) NOT NULL,
+  `id_user` int(3) NOT NULL,
   `status` enum('Merah','Kuning','Hijau') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -1293,28 +1293,31 @@ CREATE TABLE `pasien` (
 -- Dumping data for table `pasien`
 --
 
-INSERT INTO `pasien` (`id`, `nik`, `kis`, `nama`, `alamat`, `phone`, `resep`, `pesan`, `tgl_hpht`, `tgl_hpl`, `id_bidan`, `status`, `created_at`, `updated_at`) VALUES
-(3, '3271046504930003', '', 'Pratama', 'Sukowiryo', '6281285605105', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '0000-00-00 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:28:54'),
-(4, '3271046504930004', '', 'Celine', 'Tenggarang', '6285655508587', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '0000-00-00 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:28:35'),
-(6, '3271046504930002', '', 'Oong', 'Wonosari', '6285331053300', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-05 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:00:27'),
-(8, '3271046504930112', '', 'Ahmad Wildan', 'Bondowoso, pujer', '6285474996325', 'Tes Whatsapp gateway', 'Ayo minum obat hamil mu', '2020-08-12 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 15:18:42', '2020-10-11 15:18:42'),
-(9, '3271046504930122', '', 'Arsyad Arthan N.', 'Bondowoso', '6282247623501', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-09-17 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 15:19:56', '2020-10-11 15:19:56'),
-(10, '3271046504932222', '', 'Inant Kharisma', 'Bondowoso', '6282334879916', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-08 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 15:20:45', '2020-10-11 15:20:45'),
-(11, '3271046504930032', '', 'Zakiyah Nur Kholisoh', 'Bondowoso', '6282274312032', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-09-18 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 15:21:41', '2020-10-11 15:21:41'),
-(12, '3271046504930341', '', 'Israfatul Furaidah', 'Bondowoso', '6282332457579', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-06-11 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 15:22:22', '2020-10-11 15:22:22'),
-(13, '3271046504930123', '', 'Raihan Wahyu Saputra', 'Bondowoso', '6281805200948', 'Tes Whatsapp Gateway', NULL, '2020-08-13 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 17:12:48', '2020-10-11 17:12:48'),
-(14, '3271046504930415', '', 'Ahmad Ikhlas Abdillah', 'Bondowoso', '6281230164412', 'Tes Whatsapp Gateway', NULL, '2020-03-11 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 17:14:58', '2020-10-11 17:14:58'),
-(15, '3271046504931247', '', 'Amelia Kamila', 'Bondowoso', '6282241083365', 'Tes Whatsapp Gateway', NULL, '2020-11-08 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 17:41:06', '2020-10-11 17:41:06'),
-(16, '3271046504911123', '', 'Celine 2', 'Tenggarang', '6285807239314', 'Tes Whatsapp Gateway', NULL, '2020-08-07 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 17:44:33', '2020-10-11 17:44:33'),
-(17, '3271046504935532', '', 'Ade', 'Bondowoso', '6282143403936', 'Tes Whatsapp Gateway', NULL, '2020-10-08 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 17:53:26', '2020-10-11 17:53:26'),
-(18, '3271046504930987', '', 'Irfan', 'Bondowoso', '6281235731705', 'Tes Whatsapp Gateway', NULL, '2020-10-12 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 17:54:31', '2020-10-11 17:54:31'),
-(19, '3271046504938374', '', 'Sang Bintang Poetra Alam', 'Jember', '6282264449406', 'Tes Whatsapp Gateway', NULL, '2020-03-21 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 17:56:41', '2020-10-11 17:56:41'),
-(20, '3271046504910298', '', 'Rifjan Jundilla', 'Probolinggo', '6289510769084', 'Tes Whatsapp Gateway', NULL, '2020-01-01 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 17:57:36', '2020-10-11 17:57:36'),
-(21, '3271046504938768', '', 'Ishaq', 'Wonosari', '6285337970210', 'Tes Whatsappa Gateway', NULL, '2020-01-01 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 17:58:43', '2020-10-11 17:58:43'),
-(22, '3271046504930839', '', 'Fadli Romadhon', 'Tamanan', '6285257135313', 'Tes Whatsapp Gateway', NULL, '2020-02-01 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-11 18:00:18', '2020-10-11 18:00:18'),
-(23, '3271046504930572', '', 'Sigit', 'Bondowoso', '6282331030864', 'Tes Whatsapp Gateway', NULL, '2020-07-02 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 18:01:26', '2020-10-11 18:01:26'),
-(24, '3271046504930983', '', 'Munir', 'Bondowoso', '6281334994942', 'Tes Whatsapp Gateway', NULL, '2020-02-02 00:00:00', '2020-10-13 12:03:46', 3, 'Merah', '2020-10-11 18:02:25', '2020-10-11 18:02:25'),
-(25, '3271046504930899', '', 'Ayu Aji Anita', 'Bondowoso', '6282330602246', 'Tes Pesan', NULL, '2020-10-12 00:00:00', '2020-10-13 12:03:46', 2, 'Merah', '2020-10-12 02:49:51', '2020-10-12 02:49:51');
+INSERT INTO `pasien` (`id`, `nik`, `kis`, `nama`, `alamat`, `phone`, `resep`, `pesan`, `tgl_hpht`, `tgl_hpl`, `id_user`, `status`, `created_at`, `updated_at`) VALUES
+(3, '3271046504930003', '', 'Pratama', 'Sukowiryo', '6281285605105', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '0000-00-00 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:28:54'),
+(4, '3271046504930004', '', 'Celine', 'Tenggarang', '6285655508587', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '0000-00-00 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:28:35'),
+(6, '3271046504930002', '', 'Oong', 'Wonosari', '6285331053300', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-05 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:00:27'),
+(8, '3271046504930112', '', 'Ahmad Wildan', 'Bondowoso, pujer', '6285474996325', 'Tes Whatsapp gateway', 'Ayo minum obat hamil mu', '2020-08-12 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:18:42', '2020-10-11 15:18:42'),
+(9, '3271046504930122', '', 'Arsyad Arthan N.', 'Bondowoso', '6282247623501', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-09-17 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:19:56', '2020-10-11 15:19:56'),
+(10, '3271046504932222', '', 'Inant Kharisma', 'Bondowoso', '6282334879916', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-08 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:20:45', '2020-10-11 15:20:45'),
+(11, '3271046504930032', '', 'Zakiyah Nur Kholisoh', 'Bondowoso', '6282274312032', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-09-18 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:21:41', '2020-10-11 15:21:41'),
+(12, '3271046504930341', '', 'Israfatul Furaidah', 'Bondowoso', '6282332457579', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-06-11 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:22:22', '2020-10-11 15:22:22'),
+(13, '3271046504930123', '', 'Raihan Wahyu Saputra', 'Bondowoso', '6281805200948', 'Tes Whatsapp Gateway', NULL, '2020-08-13 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:12:48', '2020-10-11 17:12:48'),
+(14, '3271046504930415', '', 'Ahmad Ikhlas Abdillah', 'Bondowoso', '6281230164412', 'Tes Whatsapp Gateway', NULL, '2020-03-11 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:14:58', '2020-10-11 17:14:58'),
+(15, '3271046504931247', '', 'Amelia Kamila', 'Bondowoso', '6282241083365', 'Tes Whatsapp Gateway', NULL, '2020-11-08 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:41:06', '2020-10-11 17:41:06'),
+(16, '3271046504911123', '', 'Celine 2', 'Tenggarang', '6285807239314', 'Tes Whatsapp Gateway', NULL, '2020-08-07 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:44:33', '2020-10-11 17:44:33'),
+(17, '3271046504935532', '', 'Ade', 'Bondowoso', '6282143403936', 'Tes Whatsapp Gateway', NULL, '2020-10-08 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:53:26', '2020-10-11 17:53:26'),
+(18, '3271046504930987', '', 'Irfan', 'Bondowoso', '6281235731705', 'Tes Whatsapp Gateway', NULL, '2020-10-12 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:54:31', '2020-10-11 17:54:31'),
+(19, '3271046504938374', '', 'Sang Bintang Poetra Alam', 'Jember', '6282264449406', 'Tes Whatsapp Gateway', NULL, '2020-03-21 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:56:41', '2020-10-11 17:56:41'),
+(20, '3271046504910298', '', 'Rifjan Jundilla', 'Probolinggo', '6289510769084', 'Tes Whatsapp Gateway', NULL, '2020-01-01 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:57:36', '2020-10-11 17:57:36'),
+(21, '3271046504938768', '', 'Ishaq', 'Wonosari', '6285337970210', 'Tes Whatsappa Gateway', NULL, '2020-01-01 00:00:00', '2020-10-13 12:03:46', 66, 'Merah', '2020-10-11 17:58:43', '2020-10-11 17:58:43'),
+(22, '3271046504930839', '', 'Fadli Romadhon', 'Tamanan', '6285257135313', 'Tes Whatsapp Gateway', NULL, '2020-02-01 00:00:00', '2020-10-13 12:03:46', 66, 'Merah', '2020-10-11 18:00:18', '2020-10-11 18:00:18'),
+(23, '3271046504930572', '', 'Sigit', 'Bondowoso', '6282331030864', 'Tes Whatsapp Gateway', NULL, '2020-07-02 00:00:00', '2020-10-13 12:03:46', 66, 'Merah', '2020-10-11 18:01:26', '2020-10-11 18:01:26'),
+(24, '3271046504930983', '', 'Munir', 'Bondowoso', '6281334994942', 'Tes Whatsapp Gateway', NULL, '2020-02-02 00:00:00', '2020-10-13 12:03:46', 66, 'Merah', '2020-10-11 18:02:25', '2020-10-11 18:02:25'),
+(25, '3271046504930899', '0001454326917', 'Ayu Aji Anita', 'Bondowoso', '6282330602246', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum cursus egestas ornare. Vestibulum et neque vel orci venenatis eleifend nec at ante. Mauris maximus justo metus, id placerat tellus consequat non. Vestibulum eget nunc eget purus interdum aliquam vitae nec elit. Donec aliquam magna ex, vel varius metus rutrum quis. Maecenas porta diam a sapien tempor, nec tristique ante viverra. Nam eu quam ut dolor consectetur ullamcorper at a erat. Suspendisse malesuada, arcu nec dapibus sollicitudin, sapien justo finibus libero, a laoreet enim tortor semper libero. Aliquam id ex metus. Fusce eu tellus et lacus molestie bibendum nec non dolor. Donec blandit, nibh quis semper aliquet, metus diam sodales tellus, non viverra diam sem ac dui. Pellentesque pulvinar nunc vitae ipsum egestas posuere. Praesent faucibus a neque vehicula tristique.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis ultrices mi, at egestas lacus aliquet sit amet. Nulla rhoncus urna eget eleifend tincidunt. Maecenas ut eros facilisis, cursus erat et, finibus elit. Ut a arcu pulvinar, facilisis nisi a, volutpat tortor. Praesent congue, magna ac pharetra lobortis, metus erat facilisis diam, id maximus arcu nibh eget sapien. Aenean bibendum est eget quam vestibulum bibendum in et risus. Mauris at est tincidunt, interdum ipsum non, rutrum justo. Sed aliquet id eros sed rutrum. Integer commodo nibh ac ipsum venenatis, at facilisis tellus tempus. Nam eget eleifend nulla, non sagittis metus. Mauris sodales venenatis orci quis volutpat.\r\n\r\nIn mollis diam quis mauris vulputate, vitae porttitor elit dignissim. Ut nec varius est, sed pretium metus. Ut elementum lacus quis risus rhoncus, sit amet sollicitudin arcu malesuada. Ut a mattis urna, in finibus dolor. Aenean malesuada varius dignissim. Nam dictum dui quis mauris tempor, id interdum turpis volutpat. Nulla euismod, velit in finibus ultricies, sapien tellus finibus sem, at cursus arcu mi eget turpis. Donec hendrerit eros ligula. Vivamus a posuere tellus. Proin in eros at purus consequat condimentum ut ac velit. Aenean sit amet turpis efficitur, egestas ante sed, ultrices risus. Mauris ac consequat tortor. Donec iaculis mauris at nunc congue pharetra.\r\n\r\nMaecenas vel tempor sapien, et ullamcorper leo. Nulla auctor, nisi non laoreet scelerisque, lacus ipsum mattis lacus, quis tempus urna neque et turpis. Integer ac nibh augue. Fusce ut nunc laoreet, egestas arcu ac, condimentum lorem. Sed sit amet dolor in metus hendrerit malesuada ac quis odio. Integer a sem eu massa interdum ultrices sed sit amet dolor. Vivamus id tincidunt ex, vel maximus sem.\r\n\r\nAenean porta tempus eros, ut luctus arcu molestie vitae. Sed in risus in nisi varius porta eu id sem. Cras non ex sit amet lacus volutpat maximus vitae eu felis. Nulla facilisi. Curabitur pulvinar molestie eros, rutrum pretium mi semper quis. Pellentesque varius enim ex, in rhoncus massa pretium dignissim. Praesent aliquet porta consectetur. Mauris diam turpis, laoreet a ornare quis, luctus quis libero. Aenean pharetra ultrices odio in pretium.', NULL, '2020-10-12 00:00:00', '2020-10-13 12:03:46', 66, 'Merah', '2020-10-12 02:49:51', '2020-10-13 15:37:24'),
+(26, '3271046504931425', '0001454326918', 'Naufal Rafif Hibatullah', 'Bondowoso', '6289610343467', 'Tes Whatsapp Gateway', NULL, '2020-09-12 00:00:00', '2021-06-19 00:00:00', 9, 'Merah', '2020-10-13 15:05:47', '2020-10-13 15:30:46'),
+(27, '3271046504931414', '0001454326918', 'Tes HPL', 'Bws', '6285145632001', 'ASd', NULL, '2020-03-12 00:00:00', '2020-12-19 00:00:00', 63, 'Merah', '2020-10-13 16:34:32', '2020-10-13 16:34:32'),
+(28, '3271046504931412', '0001454326914', 'TES', 'BWS', '6285474142336', 'TES', NULL, '2019-09-20 00:00:00', '2020-06-27 00:00:00', 63, 'Merah', '2020-10-13 17:02:23', '2020-10-13 17:02:23');
 
 -- --------------------------------------------------------
 
@@ -1464,12 +1467,12 @@ CREATE TABLE `tb_user` (
   `alamat` text DEFAULT NULL,
   `ket` text DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
   `phone` varchar(15) NOT NULL,
   `level` int(3) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL COMMENT '1 = Aktif\r\n0 = Nonaktif',
   `token` varchar(100) DEFAULT NULL,
-  `username` varchar(100) DEFAULT NULL,
   `id_kantor` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -1479,12 +1482,12 @@ CREATE TABLE `tb_user` (
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id`, `nama`, `alamat`, `ket`, `email`, `password`, `phone`, `level`, `status`, `token`, `username`, `id_kantor`, `created_at`, `updated_at`) VALUES
-(9, 'Mamat', '', NULL, 'mamat@gmail.com', '123456', '', 1, '1', NULL, 'mamat', 0, '2020-10-13 04:22:16', '2020-10-13 04:22:16'),
-(62, 'Ternak Pungli', '', NULL, 'ternakpungli@gmail.com', '12345', '', 1, '1', NULL, 'testa', 0, '2020-10-13 04:22:16', '2020-10-13 04:22:16'),
-(63, 'Bupati', NULL, NULL, NULL, '123456', '', 2, '1', NULL, 'cbpati', 2, '2020-10-13 04:22:16', '2020-10-13 04:56:28'),
-(66, 'pak haji', 'bondowoso', NULL, 'pakkos@gmail.com', '123456', '', 1, '1', NULL, 'kos', NULL, '2020-10-13 04:22:16', '2020-10-13 04:22:16'),
-(67, 'Bidan AB', 'Bondowoso', NULL, NULL, '123456', '', 3, '1', NULL, 'bidanab', NULL, '2020-10-13 04:58:03', '2020-10-13 04:58:03');
+INSERT INTO `tb_user` (`id`, `nama`, `alamat`, `ket`, `email`, `username`, `password`, `phone`, `level`, `status`, `token`, `id_kantor`, `created_at`, `updated_at`) VALUES
+(9, 'Mamat', '', NULL, 'mamat@gmail.com', 'mamat', '123456', '', 1, '1', NULL, 0, '2020-10-13 04:22:16', '2020-10-13 04:22:16'),
+(62, 'Bidan Anggun', NULL, NULL, NULL, 'anggun', '123456', '', 2, '1', NULL, 0, '2020-10-13 04:22:16', '2020-10-13 14:28:25'),
+(63, 'Bidan Ayu', NULL, NULL, NULL, 'cbpati', '123456', '', 2, '1', NULL, 2, '2020-10-13 04:22:16', '2020-10-13 14:26:59'),
+(66, 'Bidan Dinda', 'bondowoso', NULL, NULL, 'dinda', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:22:16', '2020-10-13 14:28:43'),
+(67, 'Bidan AB', 'Bondowoso', NULL, NULL, 'bidanab', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:58:03', '2020-10-13 04:58:03');
 
 --
 -- Indexes for dumped tables
@@ -1642,7 +1645,7 @@ ALTER TABLE `log_ack`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `pesan`

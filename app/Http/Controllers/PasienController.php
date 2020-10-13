@@ -8,14 +8,28 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PasienExport;
 use App\Pasien;
-use App\Bidan;
+use App\Users;
 
 class PasienController extends Controller
 {
     public function index()
-    {
+    {        
         if(Session::get('user_id') != null){
-            $data = Pasien::orderBy('updated_at', 'DESC')->get();
+            $data = null;
+            $user = Users::join('level', 'tb_user.level', 'level.id_level')
+                        ->where([
+                            ['level.nama_level', 'not like', '%Admin%'],
+                            ['tb_user.id', Session::get('user_id')]
+                        ])->get();
+
+            if($user->isEmpty()){
+                //jika user adalah super admin atau admin
+                $data = Pasien::orderBy('updated_at', 'DESC')->get();
+            }
+            else{
+                //jika user adalah bidan
+                $data = Pasien::where('id_user', Session::get('user_id'))->orderBy('updated_at', 'DESC')->get();
+            }
             
             return view('pasien.index')->with('app_title', 'WhatsApp API')->with('title','Lihat Pasien')->with('data', $data);
         }
@@ -27,7 +41,9 @@ class PasienController extends Controller
     public function add()
     {
         if(Session::get('user_id') != null){
-            $bidan = Bidan::all();
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                            ->where('level.nama_level', 'not like', '%Admin%')
+                            ->get();
             
             return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien')->with('bidan', $bidan);
         }
@@ -40,12 +56,7 @@ class PasienController extends Controller
     {
         if(Session::get('user_id') != null){
             $this->validate($req,[
-                        'nik' => 'required|min:16|max:16|unique:pasien',
-                        'nama' => 'required|min:3|max:50',
-                        'alamat' => 'required',
-                        'phone' => 'required',
-                        'resep' => 'required',
-                        'bidan' => 'required'
+                        'phone' => 'required'
             ]);
 
             try{
@@ -57,38 +68,118 @@ class PasienController extends Controller
                 }
                 else{
                     //Nomor tersedia
-                    DB::table('pasien')->insert([
-                        'nik' => $req->nik,
-                        'nama' => $req->nama,
-                        'alamat' => $req->alamat,
-                        'phone' => '62'.$req->phone,
-                        'resep' => $req->resep,
-                        'tgl_hpht' => $req->tgl,
-                        'id_bidan' => Session::get('user_id')
-                    ]);
+                    $bidans = Users::join('level', 'tb_user.level', 'level.id_level')
+                            ->where([
+                                ['level.nama_level', 'not like', '%Admin%'],
+                                ['tb_user.id', Session::get('user_id')]
+                            ])->get();
+                    if($bidans->isEmpty()){
+                        //jika user adalah super admin atau admin
+                        $this->validate($req,[
+                            'nik' => 'required|min:16|max:16|unique:pasien',
+                            'kis' => 'required|unique:pasien',
+                            'nama' => 'required|min:3|max:50',
+                            'alamat' => 'required',
+                            'phone' => 'required',
+                            'resep' => 'required',
+                            'bidan' => 'required'
+                        ]);
+                        
+                        DB::table('pasien')->insert([
+                            'nik' => $req->nik,
+                            'kis' => $req->kis,
+                            'nama' => $req->nama,
+                            'alamat' => $req->alamat,
+                            'phone' => '62'.$req->phone,
+                            'resep' => $req->resep,
+                            'tgl_hpht' => $req->tgl,
+                            'id_user' => $req->bidan,
+                            'tgl_hpl' => $this->countHPL($req->tgl)
+                        ]);
+                    }
+                    else{
+                        //jika user adalah bidan
+                        $this->validate($req,[
+                            'nik' => 'required|min:16|max:16|unique:pasien',
+                            'kis' => 'required|unique:pasien',
+                            'nama' => 'required|min:3|max:50',
+                            'alamat' => 'required',
+                            'phone' => 'required',
+                            'resep' => 'required'
+                        ]);
+
+                        DB::table('pasien')->insert([
+                            'nik' => $req->nik,
+                            'kis' => $req->kis,
+                            'nama' => $req->nama,
+                            'alamat' => $req->alamat,
+                            'phone' => '62'.$req->phone,
+                            'resep' => $req->resep,
+                            'tgl_hpht' => $req->tgl,
+                            'id_user' => Session::get('user_id'),
+                            'tgl_hpl' => $this->countHPL($req->tgl)
+                        ]);
+                    }
                     
                     alert()->success('Sukses', 'Berhasil menyimpan data');
                     return redirect('pasien');
                 }
             }
             catch(\Illuminate\Database\QueryException $e){
-                alert()->error('Error', 'Gagal');
+                // alert()->error('Error', 'Gagal');
+                alert()->error('Error', $e->getMessage());
                 return redirect()->back();
+                $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                            ->where('level.nama_level', 'not like', '%Admin%')
+                            ->get();
+            
+                return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien')->with('bidan', $bidan);
             }
         }
         else{
             return redirect('login');
-        }
-        
+        }        
 
+    }
+
+    public function countHPL($hpht)
+    {
+        $hpht = [
+            'date' => substr($hpht,0,10),
+            'tgl' => substr($hpht,8,2),
+            'bulan' => substr($hpht,5,2),
+            'tahun' => substr($hpht,2,2),
+        ];
+        $tgl_hpl = $hpht['tgl'] + 7;
+        $bln_hpl = $hpht['bulan'] - 3;
+        $thn_hpl = $hpht['tahun'];
+        if($bln_hpl != 0){
+            $thn_hpl = $thn_hpl + 1;
+        }
+        else{
+            $bln_hpl = 12;
+        }
+
+        $hpl = [
+            'hpht' => $hpht['date'],
+            'tgl' => $tgl_hpl,
+            'bln' => $bln_hpl,
+            'thn' => '20'.$thn_hpl,
+            'hpl' => '20'.$thn_hpl.'-'.$bln_hpl.'-'.$tgl_hpl
+        ];
+        
+        return $hpl['hpl'];
     }
 
     public function edit($id)
     {
         if(Session::get('user_id') != null){
             $data = Pasien::where('id', $id)->get();
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                            ->where('level.nama_level', 'not like', '%Admin%')
+                            ->get();
             
-            return view('pasien.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit pasien')->with('data', $data);
+            return view('pasien.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit pasien')->with('data', $data)->with('bidan', $bidan);
         }
         else{
             return redirect('login');
@@ -117,32 +208,52 @@ class PasienController extends Controller
     public function update(Request $req)
     {
         if(Session::get('user_id') != null){
-            $this->validate($req,[
-                'id' => 'required',
-                'nik' => 'required|min:16|max:16',
-                'nama' => 'required|min:3|max:50',
-                'alamat' => 'required',
-                'phone' => 'required',
-                'resep' => 'required',
-                'status' => 'required',
-                'bidan' => 'required'
-            ]);
-
             try{
+                $this->validate($req,[
+                    'id' => 'required',
+                    'nik' => 'required|min:16|max:16',
+                    'kis' => 'required|unique:pasien',
+                    'nama' => 'required|min:3|max:50',
+                    'alamat' => 'required',
+                    'phone' => 'required',
+                    'resep' => 'required',
+                    'status' => 'required'
+                ]);
+
+                $bidans = Users::join('level', 'tb_user.level', 'level.id_level')
+                            ->where([
+                                ['level.nama_level', 'not like', '%Admin%'],
+                                ['tb_user.id', Session::get('user_id')]
+                            ])->get();
+
+                if($bidans->isEmpty()){
+                    //jika user adalah super admin atau admin
+
+                    if($req->bidan != null){
+                        DB::table('pasien')->where('id',$req->id)->update([
+                            'id_user' => $req->bidan,
+                            'updated_at' => now()
+                        ]);
+                    }
+                }
+
                 if($req->tgl != null){
                     DB::table('pasien')->where('id',$req->id)->update([
                         'nik' => $req->nik,
+                        'kis' => $req->kis,
                         'nama' => $req->nama,
                         'alamat' => $req->alamat,
                         'phone' => '62'.$req->phone,
                         'resep' => $req->resep,
                         'tgl_hpht' => $req->tgl,
+                        'tgl_hpl' => $this->countHPL($req->tgl),
                         'updated_at' => now()
                     ]);
                 }
                 else{
                     DB::table('pasien')->where('id',$req->id)->update([
                         'nik' => $req->nik,
+                        'kis' => $req->kis,
                         'nama' => $req->nama,
                         'alamat' => $req->alamat,
                         'phone' => '62'.$req->phone,

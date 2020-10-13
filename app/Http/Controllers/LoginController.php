@@ -32,7 +32,7 @@ class LoginController extends Controller
         $username = $req->username;
         $password = $req->password;
 
-        $data = Users::where('username', $username)->first();
+        $data = Users::join('level', 'tb_user.level', 'level.id_level')->where('username', $username)->first();
         
         if($data){
             // if(Hash::check($passwod, $data->password)){
@@ -50,6 +50,7 @@ class LoginController extends Controller
                     Session::put('nama', $data->nama);
                     Session::put('email', $data->email);
                     Session::put('level', $data->level);
+                    Session::put('nama_level', $data->nama_level);
                     
                     alert()->success('Sukses', 'Berhasil login');
                     return redirect('dashboard');

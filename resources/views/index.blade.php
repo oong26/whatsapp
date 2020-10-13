@@ -328,6 +328,7 @@
                       <th>No.telp.</th>
                       <th>Resep</th>
                       <th>Tanggal HPHT</th>
+                      <th>Tanggal HPL</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -338,6 +339,7 @@
                     <th>No.telp.</th>
                     <th>Resep</th>
                     <th>Tanggal HPHT</th>
+                    <th>Tanggal HPL</th>
                   </tfoot>
                   <tbody>
                     @foreach ($data['data_pasien'] as $item)
@@ -347,8 +349,15 @@
                           <td>{{$item['nama']}}</td>
                           <td>{{$item['alamat']}}</td>
                           <td>{{$item['phone']}}</td>
-                          <td>{{substr($item['resep'], 0 , 100)}}...</td>
+                          <td>
+                            @if (strlen($item['resep']) < 100)
+                              {{$item['resep']}}
+                            @else
+                              {{substr($item['resep'], 0 , 100)}}...
+                            @endif  
+                          </td>
                           <td>{{substr($item['tgl_hpht'], 0, 10)}}</td>
+                          <td>{{substr($item['tgl_hpl'], 0, 10)}}</td>
                         </tr>
                     @endforeach
                   </tbody>

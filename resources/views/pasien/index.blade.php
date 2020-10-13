@@ -31,6 +31,7 @@
                     <th class="text-center">No.telp.</th>
                     <th class="text-center">Resep</th>
                     <th class="text-center">Tanggal HPHT</th>
+                    <th class="text-center">Tanggal HPL</th>
                     <th class="text-center">Aksi</th>
                   </tr>
                 </thead>
@@ -42,6 +43,7 @@
                   <th class="text-center">No.telp.</th>
                   <th class="text-center">Resep</th>
                   <th class="text-center">Tanggal HPHT</th>
+                  <th class="text-center">Tanggal HPL</th>
                   <th class="text-center">Aksi</th>
                 </tfoot>
                 <tbody>
@@ -52,8 +54,15 @@
                         <td class="text-center">{{$item['nama']}}</td>
                         <td class="text-center">{{$item['alamat']}}</td>
                         <td class="text-center">{{$item['phone']}}</td>
-                        <td class="text-center">{{substr($item['resep'], 0 , 100)}}...</td>
+                        <td class="text-center">
+                            @if (strlen($item['resep']) < 100)
+                              {{$item['resep']}}
+                            @else
+                              {{substr($item['resep'], 0 , 100)}}...
+                            @endif
+                        </td>
                         <td class="text-center">{{substr($item['tgl_hpht'], 0, 10)}}</td>
+                        <td class="text-center">{{substr($item['tgl_hpl'], 0, 10)}}</td>
                         <td class="text-center">
                           <a class="m-1" href="{{url('pasien/edit/'.$item->id)}}"> <span class="fa fa-pen" style="color:#4e73df;"></span></a>
                           <a class="m-1" href="{{url('pasien/delete/'.$item->id)}}"> <span class="fa fa-trash" style="color:#e74a3b;"></span></a>

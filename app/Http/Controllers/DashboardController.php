@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Users;
 use App\Pasien;
 use App\Chat;
-use App\Bidan;
 use App\Device;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -20,10 +19,26 @@ class DashboardController extends Controller
     public function index()
     {
         if(Session::get('user_id') != null){
+            $pasien = null;
+            $checkUser = Users::join('level', 'tb_user.level', 'level.id_level')
+                        ->where([
+                            ['level.nama_level', 'not like', '%Admin%'],
+                            ['tb_user.id', Session::get('user_id')]
+                        ])->get();
+
+            if($checkUser->isEmpty()){
+                //jika user adalah super admin atau admin
+                $pasien = Pasien::orderBy('id', 'DESC')->get();
+            }
+            else{
+                //jika user adalah bidan
+                $pasien = Pasien::where('id_user', Session::get('user_id'))->orderBy('updated_at', 'DESC')->get();
+            }
             $users = Users::all();
-            $pasien = Pasien::orderBy('id', 'DESC')->get();
             $chat = Chat::where('status', 'mengirim pesan')->get();
-            $bidan = Bidan::all();
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                            ->where('level.nama_level', 'not like', '%Admin%')
+                            ->get();
 
             $data = array(
                 'data_pasien' => $pasien,

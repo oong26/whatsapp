@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="nik">KIS</label>
+                        <label class="col-sm-2" for="kis">KIS</label>
                         <div class="col-sm-10">
                             <input type="text" name="kis" id="kis" class="form-control" value="{{old('kis')}}">  
                             <small id="kis" style="color:red;" class="ml-2 form-text">{{$errors->first('kis')}}</small>
@@ -64,18 +64,23 @@
                             <small id="tgl" style="color:red;" class="ml-2 form-text ">{{$errors->first('tgl')}}</small>
                         </div>
                     </div>
-                    {{-- <div class="form-group row ml-2">
+                    @if (!(Session::get('nama_level') == 'Super Admin' || Session::get('nama_level') == 'Admin'))
+                    {{-- user = bidan --}}
+                    @else
+                    {{-- user = super admin atau admin --}}
+                    <div class="form-group row ml-2">
                         <label class="col-sm-2" for="bidan">Bidan</label>
                         <div class="col-sm-10">
                             <select name="bidan" id="bidan" class="form-control">
                                 <option value="">Pilih bidan</option>
                                 @foreach ($bidan as $item)
-                                    <option value="{{$item->id_bidan}}">{{$item->nama}}</option>
+                                    <option value="{{$item->id}}">{{$item->nama}} - {{$item->wilayah}}</option>
                                 @endforeach
                             </select>
                             <small id="bidan" style="color:red;" class="ml-2 form-text ">{{$errors->first('bidan')}}</small>
                         </div>
-                    </div> --}}
+                    </div>
+                    @endif
                     <div class="form-group float-right">
                         <a class="text-decoration-none" href="{{url('pasien')}}">
                             <input class="btn btn-danger" type="button" value="Batal">
