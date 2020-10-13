@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Users;
+use App\Level;
 
 class UserController extends Controller
 {
     public function index()
     {
         if(Session::get('user_id') != null){
-            $data = Users::all();
+            $data = Users::join('level','tb_user.level', 'level.id_level')->get();
             
             return view('users.index')->with('app_title', 'WhatsApp API')->with('title', 'Lihat akun')->with('data',$data);
         }
@@ -25,7 +26,8 @@ class UserController extends Controller
     public function add()
     {
         if(Session::get('user_id') != null){
-            return view('users.add')->with('app_title', 'WhatsApp API')->with('title', 'Tambah akun');
+            $level = Level::all();
+            return view('users.add')->with('app_title', 'WhatsApp API')->with('title', 'Tambah akun')->with('level', $level);
         }
         else{
             return redirect('login');
@@ -37,8 +39,6 @@ class UserController extends Controller
         if(Session::get('user_id') != null){
             $this->validate($req,[  
                 'nama' => 'required|min:3|max:50',
-                'email' => 'required',
-                'alamat' => 'required',
                 'username' => 'required|min:3|max:30',
                 'password' => 'required|min:3',
                 'level' => 'required',
@@ -52,7 +52,7 @@ class UserController extends Controller
                     'alamat' => $req->alamat,
                     'level' => $req->level, 
                     'username' => $req->username,
-                    'password' => Hash::make($req->password)
+                    'password' => $req->password
                 ]);
     
                 alert()->success('Sukses', 'Berhasil menyimpan data');
@@ -91,8 +91,9 @@ class UserController extends Controller
     {
         if(Session::get('user_id') != null){
             $data = Users::where('id',$id)->get();
+            $level = Level::all();
     
-            return view('users.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit akun')->with('data', $data);
+            return view('users.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit akun')->with('data', $data)->with('level', $level);
         }
         else{
             return redirect('login');
@@ -104,10 +105,7 @@ class UserController extends Controller
         if(Session::get('user_id') != null){
             $this->validate($req,[  
                 'nama' => 'required|min:3|max:50',
-                'email' => 'required',
-                'alamat' => 'required',
                 'username' => 'required|min:3|max:30',
-                'password' => 'required|min:3',
                 'level' => 'required',
                 'status' => 'required'
             ]);
@@ -116,12 +114,25 @@ class UserController extends Controller
                 DB::table('tb_user')->where('id',$req->id)->update([
                     'nama' => $req->nama,
                     'email' => $req->email,
-                    'status' => 1,
                     'alamat' => $req->alamat,
                     'level' => $req->level, 
                     'username' => $req->username,
-                    'password' => Hash::make($req->password)
+                    'updated_at' => now()
                 ]);
+
+                if($req->password != null){
+                    DB::table('tb_user')->where('id',$req->id)->update([
+                        'password' => $req->password,
+                        'updated_at' => now()
+                    ]);
+                }
+
+                if($req->status != null){
+                    DB::table('tb_user')->where('id',$req->id)->update([
+                        'status' => $req->status,
+                        'updated_at' => now()
+                    ]);
+                }
                 
                 alert()->success('Sukses', 'Berhasil memperbarui data');
                 return redirect('akun');

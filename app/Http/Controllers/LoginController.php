@@ -30,7 +30,7 @@ class LoginController extends Controller
         ]);
             
         $username = $req->username;
-        $passwod = $req->password;
+        $password = $req->password;
 
         $data = Users::where('username', $username)->first();
         
@@ -44,17 +44,23 @@ class LoginController extends Controller
             //     alert()->success('Sukses', 'Berhasil login');
             //     return redirect('dashboard');
             // }
-            if($passwod == $data->password){
-                Session::put('user_id', $data->id);
-                Session::put('nama', $data->nama);
-                Session::put('email', $data->email);
-                Session::put('level', $data->level);
-                
-                alert()->success('Sukses', 'Berhasil login');
-                return redirect('dashboard');
+            if($data->status == 1){
+                if($password == $data->password){
+                    Session::put('user_id', $data->id);
+                    Session::put('nama', $data->nama);
+                    Session::put('email', $data->email);
+                    Session::put('level', $data->level);
+                    
+                    alert()->success('Sukses', 'Berhasil login');
+                    return redirect('dashboard');
+                }
+                else{
+                    alert()->warning('Gagal', 'Password salah');
+                    return back();
+                }
             }
             else{
-                alert()->warning('Gagal', 'Password salah');
+                alert()->warning('Gagal', 'Akun telah di nonaktifkan. Harap hubungi admin');
                 return back();
             }
         }

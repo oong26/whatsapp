@@ -30,10 +30,10 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="email">Email</label>
+                        <label class="col-sm-2" for="ket">Keterangan(Opsional)</label>
                         <div class="col-sm-10">
-                            <input type="email" name="email" id="email" class="form-control">  
-                            <small id="email" style="color:red;" class="ml-2 form-text ">{{$errors->first('email')}}</small>
+                            <textarea name="ket" id="ket" cols="30" rows="5" class="form-control"></textarea>  
+                            <small id="ket" style="color:red;" class="ml-2 form-text ">{{$errors->first('ket')}}</small>
                         </div>
                     </div>
                     <div class="form-group row ml-2">
@@ -55,8 +55,9 @@
                         <div class="col-sm-10">
                             <select name="level" id="level" class="form-control"> 
                                 <option value="">Pilih wewenang</option>
-                                <option value="1">Admin</option>
-                                <option value="2">User</option>
+                                @foreach ($level as $item)
+                                    <option value="{{$item->id_level}}">{{$item->nama_level}} - {{$item->wilayah}}</option>
+                                @endforeach
                             </select>
                             <small id="level" style="color:red;" class="ml-2 form-text ">{{$errors->first('level')}}</small>
                         </div>

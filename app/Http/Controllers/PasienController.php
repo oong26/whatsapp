@@ -15,7 +15,7 @@ class PasienController extends Controller
     public function index()
     {
         if(Session::get('user_id') != null){
-            $data = Pasien::all();
+            $data = Pasien::orderBy('updated_at', 'DESC')->get();
             
             return view('pasien.index')->with('app_title', 'WhatsApp API')->with('title','Lihat Pasien')->with('data', $data);
         }
@@ -64,7 +64,7 @@ class PasienController extends Controller
                         'phone' => '62'.$req->phone,
                         'resep' => $req->resep,
                         'tgl_hpht' => $req->tgl,
-                        'id_bidan' => $req->bidan
+                        'id_bidan' => Session::get('user_id')
                     ]);
                     
                     alert()->success('Sukses', 'Berhasil menyimpan data');

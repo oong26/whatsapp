@@ -23,6 +23,13 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
+                        <label class="col-sm-2" for="nik">KIS</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="kis" id="kis" class="form-control" value="{{old('kis')}}">  
+                            <small id="kis" style="color:red;" class="ml-2 form-text">{{$errors->first('kis')}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group row ml-2">
                         <label class="col-sm-2" for="nama">Nama</label>
                         <div class="col-sm-10">
                             <input type="text" name="nama" id="nama" class="form-control" value="{{old('nama')}}">  
@@ -57,7 +64,7 @@
                             <small id="tgl" style="color:red;" class="ml-2 form-text ">{{$errors->first('tgl')}}</small>
                         </div>
                     </div>
-                    <div class="form-group row ml-2">
+                    {{-- <div class="form-group row ml-2">
                         <label class="col-sm-2" for="bidan">Bidan</label>
                         <div class="col-sm-10">
                             <select name="bidan" id="bidan" class="form-control">
@@ -68,7 +75,7 @@
                             </select>
                             <small id="bidan" style="color:red;" class="ml-2 form-text ">{{$errors->first('bidan')}}</small>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group float-right">
                         <a class="text-decoration-none" href="{{url('pasien')}}">
                             <input class="btn btn-danger" type="button" value="Batal">

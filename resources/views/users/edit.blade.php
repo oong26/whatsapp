@@ -32,10 +32,10 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="email">Email</label>
+                        <label class="col-sm-2" for="ket">Keterangan(Opsional)</label>
                         <div class="col-sm-10">
-                            <input type="email" name="email" id="email" class="form-control" value="{{$item['email']}}">  
-                            <small id="email" style="color:red;" class="ml-2 form-text ">{{$errors->first('email')}}</small>
+                            <textarea name="ket" id="ket" cols="30" rows="5" class="form-control">{{$item['ket']}}</textarea>  
+                            <small id="ket" style="color:red;" class="ml-2 form-text ">{{$errors->first('ket')}}</small>
                         </div>
                     </div>
                     <div class="form-group row ml-2">
@@ -57,13 +57,13 @@
                         <div class="col-sm-10">
                             <select name="level" id="level" class="form-control"> 
                                 <option value="">Pilih wewenang</option>
-                                @if($item['level'] == 0)
-                                <option value="1">Admin</option>
-                                <option value="0" selected>User</option>
-                                @else
-                                <option value="1" selected>Admin</option>
-                                <option value="0">User</option>
-                                @endif
+                                @foreach ($level as $lev)
+                                    @if($item['level'] == $lev['id_level'])
+                                    <option value="{{$lev['id_level']}}" selected>{{$lev['nama_level']}} - {{$lev['wilayah']}}</option>
+                                    @else
+                                    <option value="{{$lev['id_level']}}">{{$lev['nama_level']}} - {{$lev['wilayah']}}</option>
+                                    @endif
+                                @endforeach
                             </select>
                             <small id="level" style="color:red;" class="ml-2 form-text ">{{$errors->first('level')}}</small>
                         </div>
@@ -74,11 +74,11 @@
                             <select name="status" id="status" class="form-control"> 
                                 <option value="">Pilih status</option>
                                 @if($item['status'] == 0)
-                                <option value="1">Aktifkan</option>
-                                <option value="0" selected>Nonaktifkan</option>
+                                <option value="1">Aktif</option>
+                                <option value="0" selected>Nonaktif</option>
                                 @else
-                                <option value="1" selected>Aktifkan</option>
-                                <option value="0">Nonaktifkan</option>
+                                <option value="1" selected>Aktif</option>
+                                <option value="0">Nonaktif</option>
                                 @endif
                             </select>
                             <small id="status" style="color:red;" class="ml-2 form-text ">{{$errors->first('status')}}</small>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Users;
 use App\Pasien;
 use App\Chat;
+use App\Bidan;
+use App\Device;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Hash;
@@ -21,12 +23,14 @@ class DashboardController extends Controller
             $users = Users::all();
             $pasien = Pasien::orderBy('id', 'DESC')->get();
             $chat = Chat::where('status', 'mengirim pesan')->get();
+            $bidan = Bidan::all();
 
             $data = array(
                 'data_pasien' => $pasien,
                 'users' => count($users),
                 'pasien' => count($pasien),
-                'chat' => count($chat)
+                'chat' => count($chat),
+                'bidan' => count($bidan)
             );
 
             return view('index')->with('app_title', 'WhatsApp API')->with('title', 'Dashboard')->with('data', $data);
@@ -69,21 +73,38 @@ class DashboardController extends Controller
         $pasien = Pasien::all();
 		// return $req->id_device;
 		$client = new Client();
+        $device = Device::where('status', 'connected')->get();
+        
+        if(count($device) == 1){
+            for($i=0;$i<count($pasien);$i++){
+                $no = $pasien[$i]['phone'];
+                $nama = $pasien[$i]['nama'];
+                $pesan = $nama.' '.$pasien[$i]['pesan'].'. Dengan resep dibawah ini : \n'.$pasien[$i]['resep']. ' \nPesan diterima setiap jam 19.00.';
+                
+                //Dinamis
+                $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+                        'form_params' => [
+                        'id_device' => $device[0]['id'],
+                        'to' => $no,
+                        'pesan' => $pesan
+                    ]
+                ]);
 
-		for($i=0;$i<count($pasien);$i++){
-			$no = $pasien[$i]['phone'];
-			$nama = $pasien[$i]['nama'];
-			$pesan = $nama.' '.$pasien[$i]['pesan'].'. Dengan resep dibawah ini : \n'.$pasien[$i]['resep']. ' \nPesan diterima setiap jam 19.00.';
-			
-			$r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
-				'form_params' => [
-					'id_device' => '10',
-					'to' => $no,
-					'pesan' => $pesan
-				]
-			]);
-		}
-		return redirect('msg');
+                //Statik
+                // $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+                //         'form_params' => [
+                //         'id_device' => '11',
+                //         'to' => $no,
+                //         'pesan' => $pesan
+                //     ]
+                // ]);
+            }
+            return redirect('msg');
+        }
+        else{
+            return 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.';
+        }
+		
     }
 
 }

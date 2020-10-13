@@ -70,18 +70,18 @@ Route::prefix('pasien')->group(function(){
 
 });
 
-Route::prefix('bidan')->group(function(){
+Route::prefix('wewenang')->group(function(){
     
-    Route::get('', 'BidanController@index');
+    Route::get('', 'LevelController@index');
     
-    Route::get('tambah', 'BidanController@add');
+    Route::get('tambah', 'LevelController@add');
 
-    Route::post('store', 'BidanController@store');
+    Route::post('store', 'LevelController@store');
     
-    Route::get('edit/{id}', 'BidanController@edit');
+    Route::get('edit/{id}', 'LevelController@edit');
     
-    Route::get('delete/{id}', 'BidanController@delete');
+    Route::get('delete/{id}', 'LevelController@delete');
 
-    Route::post('update', 'BidanController@update');
+    Route::post('update', 'LevelController@update');
 
 });

@@ -8,7 +8,7 @@
       <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">{{$title}}</h1>
-            <a href="{{url('bidan/tambah')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
+            <a href="{{url('wewenang/tambah')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
           </div>
 
       <div class="row">
@@ -16,7 +16,7 @@
           <!-- DataTables -->
          <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Bidan</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Data Wewenang({{count($data)}})</h6>
             {{-- <a href="{{url('pasien/export')}}" class="float-right d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Excel</a> --}}
           </div>
           <div class="card-body">
@@ -24,30 +24,27 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>No.telp.</th>
-                    <th>Aksi</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Wewenang</th>
+                    <th class="text-center">Wilayah</th>
+                    <th class="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tfoot>
-                  <th>#</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>No.telp.</th>
-                    <th>Aksi</th>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Wewenang</th>
+                  <th class="text-center">Wilayah</th>
+                  <th class="text-center">Aksi</th>
                 </tfoot>
                 <tbody>
                   @foreach ($data as $item)
                       <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item['nama']}}</td>
-                        <td>{{$item['alamat']}}</td>
-                        <td>{{$item['phone']}}</td>
-                        <td>
-                          <a href="{{url('bidan/edit/'.$item->id_bidan)}}"> <span class="fa fa-pen" style="color:#4e73df;"></span></a>
-                          <a href="{{url('bidan/delete/'.$item->id_bidan)}}"> <span class="fa fa-trash" style="color:#e74a3b;"></span></a>
+                        <td class="text-center">{{$loop->iteration}}</td>
+                        <td class="text-center">{{$item['nama_level']}}</td>
+                        <td class="text-center">{{$item['wilayah']}}</td>
+                        <td class="text-center">
+                          <a class="m-1" href="{{url('wewenang/edit/'.$item->id_level)}}"> <span class="fa fa-pen" style="color:#4e73df;"></span></a>
+                          <a class="m-1" href="{{url('wewenang/delete/'.$item->id_level)}}"> <span class="fa fa-trash" style="color:#e74a3b;"></span></a>
                         </td>
                       </tr>
                   @endforeach

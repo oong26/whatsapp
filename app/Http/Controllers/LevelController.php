@@ -5,18 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\BidanExport;
-use App\Bidan;
+use App\Level;
 
-class BidanController extends Controller
+class LevelController extends Controller
 {
     public function index()
     {
         if(Session::get('user_id') != null){
-            $data = Bidan::all();
+            $data = Level::all();
             
-            return view('bidan.index')->with('app_title', 'WhatsApp API')->with('title','Lihat Bidan')->with('data', $data);
+            return view('level.index')->with('app_title', 'WhatsApp API')->with('title','Lihat Wewenang')->with('data', $data);
         }
         else{
             return redirect('login');
@@ -26,7 +24,7 @@ class BidanController extends Controller
     public function add()
     {
         if(Session::get('user_id') != null){
-            return view('bidan.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Bidan');
+            return view('level.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Wewenang');
         }
         else{
             return redirect('login');
@@ -37,29 +35,24 @@ class BidanController extends Controller
     {
         if(Session::get('user_id') != null){
             $this->validate($req,[
-                        'nama' => 'required|min:3|max:50',
-                        'alamat' => 'required',
-                        'phone' => 'required|unique:bidan'
+                'wewenang' => 'required|min:3|max:50'
             ]);
 
             try{
-                $phoneIsExists = Bidan::where('phone', '62'.$req->phone)->first();
-                if($phoneIsExists){
-                    // Nomor telah digunakan
-                    alert()->error('Error', 'Nomor telah digunakan');
-                    return redirect()->back();
+                if($req->wilayah == null){
+                    DB::table('level')->insert([
+                        'nama_level' => $req->wewenang
+                    ]);
                 }
                 else{
-                    //Nomor tersedia
-                    DB::table('bidan')->insert([
-                        'nama' => $req->nama,
-                        'alamat' => $req->alamat,
-                        'phone' => '62'.$req->phone
+                    DB::table('level')->insert([
+                        'nama_level' => $req->wewenang,
+                        'wilayah' => $req->wilayah
                     ]);
-                    
-                    alert()->success('Sukses', 'Berhasil menyimpan data');
-                    return redirect('bidan');
                 }
+                
+                alert()->success('Sukses', 'Berhasil menyimpan data');
+                return redirect('wewenang');
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', 'Gagal');
@@ -76,9 +69,9 @@ class BidanController extends Controller
     public function edit($id)
     {
         if(Session::get('user_id') != null){
-            $data = Bidan::where('id_bidan', $id)->get();
+            $data = Level::where('id_level', $id)->get();
             
-            return view('bidan.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit Bidan')->with('data', $data);
+            return view('level.edit')->with('app_title', 'WhatsApp API')->with('title', 'Edit Wewenang')->with('data', $data);
         }
         else{
             return redirect('login');
@@ -89,10 +82,10 @@ class BidanController extends Controller
     {
         if(Session::get('user_id') != null){
             try{
-                DB::table('bidan')->where('id_bidan', $id)->delete();
+                DB::table('level')->where('id_level', $id)->delete();
                 
                 alert()->success('Sukses', 'Berhasil menghapus data');
-                return redirect('bidan');
+                return redirect('wewenang');
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', 'Gagal');
@@ -109,21 +102,24 @@ class BidanController extends Controller
         if(Session::get('user_id') != null){
             $this->validate($req,[
                 'id' => 'required',
-                'nama' => 'required|min:3|max:50',
-                'alamat' => 'required',
-                'phone' => 'required'
+                'wewenang' => 'required|min:3|max:50'
             ]);
 
             try{
-                DB::table('bidan')->where('id_bidan',$req->id)->update([
-                    'nama' => $req->nama,
-                    'alamat' => $req->alamat,
-                    'phone' => '62'.$req->phone,
-                    'updated_at' => now()
-                ]);
+                if($req->wilayah == null){
+                    DB::table('level')->where('id_level',$req->id)->update([
+                        'nama_level' => $req->wewenang
+                    ]);
+                }
+                else{
+                    DB::table('level')->where('id_level',$req->id)->update([
+                        'nama_level' => $req->wewenang,
+                        'wilayah' => $req->wilayah
+                    ]);
+                }
                 
-                alert()->success('Sukses', 'Berhasil memperbarui data data');
-                return redirect('bidan');
+                alert()->success('Sukses', 'Berhasil memperbarui data');
+                return redirect('wewenang');
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', $e->getMessage());

@@ -16,45 +16,48 @@
             <!-- DataTables -->
          <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Akun</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Data Akun({{count($data)}})</h6>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>Email</th>
-                    <th>Username</th>
-                    <th>Wewenang</th>
-                    <th>Aksi</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nama</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">Username</th>
+                    <th class="text-center">Wewenang</th>
+                    <th class="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>Email</th>
-                    <th>Username</th>
-                    <th>Wewenang</th>
-                    <th>Aksi</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nama</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">Username</th>
+                    <th class="text-center">Wewenang</th>
+                    <th class="text-center">Aksi</th>
                   </tr>
                 </tfoot>
                 <tbody>
                   @foreach ($data as $item)
                       <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item['nama']}}</td>
-                        <td>{{$item['alamat']}}</td>
-                        <td>{{$item['email']}}</td>
-                        <td>{{$item['username']}}</td>
-                        <td>{{$item['level']}}</td>
-                        <td>
-                          <a href="{{url('akun/edit/'.$item->id)}}"> <span class="fa fa-pen" style="color:#4e73df;"></span></a>
-                          <a href="{{url('akun/delete/'.$item->id)}}"> <span class="fa fa-trash" style="color:#e74a3b;"></span></a>
+                        <td class="text-center">{{$loop->iteration}}</td>
+                        <td class="text-center">{{$item['nama']}}</td>
+                        <td class="text-center">
+                          @if ($item['alamat'] == null)
+                              -
+                          @else
+                            {{$item['alamat']}}
+                          @endif
+                        </td>
+                        <td class="text-center">{{$item['username']}}</td>
+                        <td class="text-center">{{$item['nama_level']}} - {{$item['wilayah']}}</td>
+                        <td class="text-center">
+                          <a class="m-1" href="{{url('akun/edit/'.$item->id)}}"> <span class="fa fa-pen" style="color:#4e73df;"></span></a>
+                          <a class="m-1" href="{{url('akun/delete/'.$item->id)}}"> <span class="fa fa-trash" style="color:#e74a3b;"></span></a>
                         </td>
                       </tr>
                   @endforeach
