@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2020 at 08:11 PM
+-- Generation Time: Oct 14, 2020 at 11:02 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -48,29 +48,6 @@ INSERT INTO `autoreply` (`id`, `receive`, `reply`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bidan`
---
-
-CREATE TABLE `bidan` (
-  `id_bidan` int(3) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `alamat` varchar(255) NOT NULL,
-  `phone` varchar(15) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `bidan`
---
-
-INSERT INTO `bidan` (`id_bidan`, `nama`, `alamat`, `phone`, `created_at`, `updated_at`) VALUES
-(2, 'Eka Nurilyadi', 'Binakal', '6285114253668', '2020-10-11 15:09:16', '2020-10-11 15:09:16'),
-(3, 'Endank Soekamti', 'Bondowoso', '6287441523640', '2020-10-11 15:09:33', '2020-10-11 15:09:33');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `chat`
 --
 
@@ -86,31 +63,31 @@ CREATE TABLE `chat` (
   `id_device` int(11) DEFAULT NULL,
   `mengirim` varchar(200) DEFAULT NULL,
   `terkirim` varchar(200) DEFAULT NULL,
-  `dibaca` varchar(200) DEFAULT NULL
+  `dibaca` varchar(200) DEFAULT NULL,
+  `time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `chat`
 --
 
-INSERT INTO `chat` (`id_chat`, `dari`, `tujuan`, `gambar`, `id_user`, `status`, `keterangan`, `waktu`, `id_device`, `mengirim`, `terkirim`, `dibaca`) VALUES
-(1, NULL, '6285156623438', NULL, 9, 'gagal', 'Tes', 'Tue Sep 29 2020 22:07:19 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(2, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'test', 'Tue Sep 29 2020 23:39:06 GMT+0700 (Western Indonesia Time)', 7, NULL, NULL, NULL),
-(3, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes bro', 'Tue Sep 29 2020 23:40:38 GMT+0700 (Western Indonesia Time)', 7, NULL, NULL, NULL),
-(4, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'Halo\r\n', 'Tue Sep 29 2020 23:58:16 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(5, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'Hello World', 'Wed Sep 30 2020 00:03:28 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(6, NULL, '6281285605105', NULL, 9, 'mengirim pesan', 'Hello World', 'Wed Sep 30 2020 00:03:33 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(7, NULL, '6289510769084', NULL, 9, 'mengirim pesan', 'Hallo sayang', 'Wed Sep 30 2020 15:04:32 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(8, NULL, '6281285605105', NULL, 9, 'mengirim pesan', 'Tes WA API', 'Wed Sep 30 2020 16:29:09 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(9, NULL, '6281285605105', NULL, 9, 'mengirim pesan', 'Tes', 'Wed Sep 30 2020 16:30:37 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(10, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'ini test', 'Wed Sep 30 2020 16:31:13 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(11, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'TES', 'Thu Oct 01 2020 10:26:32 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(12, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes lagi', 'Thu Oct 01 2020 10:27:10 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(13, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'j', 'Thu Oct 01 2020 10:47:50 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(14, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'o', 'Thu Oct 01 2020 10:51:42 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(15, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes', 'Thu Oct 01 2020 11:39:16 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL),
-(16, NULL, '6285331053300', NULL, 9, 'mengirim pesan', 'tes', 'Thu Oct 01 2020 11:45:22 GMT+0700 (Western Indonesia Time)', 11, NULL, NULL, NULL),
-(17, NULL, '6285331053300', NULL, 9, 'mengirim pesan', 'asd', 'Sat Oct 10 2020 02:08:38 GMT+0700 (Western Indonesia Time)', 11, NULL, NULL, NULL);
+INSERT INTO `chat` (`id_chat`, `dari`, `tujuan`, `gambar`, `id_user`, `status`, `keterangan`, `waktu`, `id_device`, `mengirim`, `terkirim`, `dibaca`, `time`) VALUES
+(2, NULL, '6285156623438', NULL, 9, 'gagal', 'test', 'Tue Sep 29 2020 23:39:06 GMT+0700 (Western Indonesia Time)', 7, NULL, NULL, NULL, '2020-10-13 19:47:44'),
+(3, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes bro', 'Tue Sep 29 2020 23:40:38 GMT+0700 (Western Indonesia Time)', 7, NULL, NULL, NULL, '2020-10-12 19:47:44'),
+(4, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'Halo\r\n', 'Tue Sep 29 2020 23:58:16 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(5, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'Hello World', 'Wed Sep 30 2020 00:03:28 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(6, NULL, '6281285605105', NULL, 9, 'mengirim pesan', 'Hello World', 'Wed Sep 30 2020 00:03:33 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(7, NULL, '6289510769084', NULL, 9, 'mengirim pesan', 'Hallo sayang', 'Wed Sep 30 2020 15:04:32 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(8, NULL, '6281285605105', NULL, 9, 'mengirim pesan', 'Tes WA API', 'Wed Sep 30 2020 16:29:09 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(9, NULL, '6281285605105', NULL, 9, 'mengirim pesan', 'Tes', 'Wed Sep 30 2020 16:30:37 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(10, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'ini test', 'Wed Sep 30 2020 16:31:13 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(11, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'TES', 'Thu Oct 01 2020 10:26:32 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(12, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes lagi', 'Thu Oct 01 2020 10:27:10 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(13, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'j', 'Thu Oct 01 2020 10:47:50 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(14, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'o', 'Thu Oct 01 2020 10:51:42 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(15, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes', 'Thu Oct 01 2020 11:39:16 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(16, NULL, '6285331053300', NULL, 9, 'mengirim pesan', 'tes', 'Thu Oct 01 2020 11:45:22 GMT+0700 (Western Indonesia Time)', 11, NULL, NULL, NULL, '2020-10-14 19:47:44'),
+(17, NULL, '6285331053300', NULL, 9, 'mengirim pesan', 'asd', 'Sat Oct 10 2020 02:08:38 GMT+0700 (Western Indonesia Time)', 11, NULL, NULL, NULL, '2020-10-14 19:47:44');
 
 -- --------------------------------------------------------
 
@@ -143,7 +120,7 @@ CREATE TABLE `device` (
 
 INSERT INTO `device` (`id`, `nama_device`, `status`, `id_user`, `pushname`, `wid`, `batteray`, `plugged`, `wa_version`, `mcc`, `mnc`, `os_version`, `device_manufacturer`, `device_model`, `os_build_number`, `hide`) VALUES
 (10, '6285331053300', 'device not connected', 9, 'oong', '6285331053300@c.us', NULL, NULL, '2.20.193.9', NULL, NULL, '5.1', 'OPPO', 'A33w', 'A33wEX_11_190306', 0),
-(11, '6285156623438', 'connected', 9, 'Oopen Minded', '6285156623438@c.us', NULL, NULL, '2.20.200.22', NULL, NULL, '5.1', 'OPPO', 'A33w', 'A33wEX_11_190306', 0);
+(11, '6285156623438', 'device not connected', 9, 'Oopen Minded', '6285156623438@c.us', NULL, NULL, '2.20.200.22', NULL, NULL, '5.1', 'OPPO', 'A33w', 'A33wEX_11_190306', 0);
 
 -- --------------------------------------------------------
 
@@ -1434,7 +1411,8 @@ INSERT INTO `pesan` (`id`, `body`, `tp`, `fr`, `tu`, `datetime`, `status`) VALUE
 (92, 'Aman', 'chat', '6281230164412@c.us', '6285156623438@c.us', NULL, -1),
 (93, '\nPesan', 'chat', '6282143403936@c.us', '6285156623438@c.us', NULL, -1),
 (94, 'Tetep', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
-(95, 'Maksudnya apa ya?', 'chat', '6282274312032@c.us', '6285156623438@c.us', NULL, -1);
+(95, 'Maksudnya apa ya?', 'chat', '6282274312032@c.us', '6285156623438@c.us', NULL, -1),
+(96, 'Siap', 'chat', '6281230164412@c.us', '6285156623438@c.us', NULL, -1);
 
 -- --------------------------------------------------------
 
@@ -1489,6 +1467,26 @@ INSERT INTO `tb_user` (`id`, `nama`, `alamat`, `ket`, `email`, `username`, `pass
 (66, 'Bidan Dinda', 'bondowoso', NULL, NULL, 'dinda', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:22:16', '2020-10-13 14:28:43'),
 (67, 'Bidan AB', 'Bondowoso', NULL, NULL, 'bidanab', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:58:03', '2020-10-13 04:58:03');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `waktu`
+--
+
+CREATE TABLE `waktu` (
+  `id` int(3) NOT NULL,
+  `judul` varchar(30) NOT NULL,
+  `jam` varchar(5) NOT NULL,
+  `is_active` int(1) NOT NULL COMMENT '0 = Tidak Aktif\r\n1 = Aktif'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `waktu`
+--
+
+INSERT INTO `waktu` (`id`, `judul`, `jam`, `is_active`) VALUES
+(2, 'Daily', '03:36', 1);
+
 --
 -- Indexes for dumped tables
 --
@@ -1498,12 +1496,6 @@ INSERT INTO `tb_user` (`id`, `nama`, `alamat`, `ket`, `email`, `username`, `pass
 --
 ALTER TABLE `autoreply`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `bidan`
---
-ALTER TABLE `bidan`
-  ADD PRIMARY KEY (`id_bidan`);
 
 --
 -- Indexes for table `chat`
@@ -1578,6 +1570,12 @@ ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `waktu`
+--
+ALTER TABLE `waktu`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1586,12 +1584,6 @@ ALTER TABLE `tb_user`
 --
 ALTER TABLE `autoreply`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `bidan`
---
-ALTER TABLE `bidan`
-  MODIFY `id_bidan` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -1651,7 +1643,7 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `pesan`
 --
 ALTER TABLE `pesan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -1664,6 +1656,12 @@ ALTER TABLE `product`
 --
 ALTER TABLE `tb_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
+--
+-- AUTO_INCREMENT for table `waktu`
+--
+ALTER TABLE `waktu`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
