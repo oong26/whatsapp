@@ -13,6 +13,7 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -36,6 +37,16 @@ class DashboardController extends Controller
             }
             $users = Users::all();
             $chat = Chat::where('status', 'mengirim pesan')->get();
+            $chatToday = Chat::where([
+                ['time', 'like', substr(now(),0,10).'%'],
+                ['status', 'mengirim pesan']
+            ])->get();
+
+            $failedChatToday = Chat::where([
+                ['time', 'like', substr(now(),0,10).'%'],
+                ['status', 'gagal']
+            ])->get();
+
             $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
                             ->where('level.nama_level', 'not like', '%Admin%')
                             ->get();
@@ -45,7 +56,9 @@ class DashboardController extends Controller
                 'users' => count($users),
                 'pasien' => count($pasien),
                 'chat' => count($chat),
-                'bidan' => count($bidan)
+                'bidan' => count($bidan),
+                'chat_today' => count($chatToday),
+                'failed_chat' => count($failedChatToday)
             );
 
             return view('index')->with('app_title', 'WhatsApp API')->with('title', 'Dashboard')->with('data', $data);

@@ -25,7 +25,8 @@
                 <thead>
                   <tr>
                     <th class="text-center">#</th>
-                    <th class="text-center">NIK</th>
+                    {{-- <th class="text-center">NIK</th> --}}
+                    <th class="text-center">KIS</th>
                     <th class="text-center">Nama</th>
                     <th class="text-center">Alamat</th>
                     <th class="text-center">No.telp.</th>
@@ -37,7 +38,8 @@
                 </thead>
                 <tfoot>
                   <th class="text-center">#</th>
-                  <th class="text-center">NIK</th>
+                  {{-- <th class="text-center">NIK</th> --}}
+                  <th class="text-center">KIS</th>
                   <th class="text-center">Nama</th>
                   <th class="text-center">Alamat</th>
                   <th class="text-center">No.telp.</th>
@@ -50,7 +52,8 @@
                   @foreach ($data as $item)
                       <tr>
                         <td class="text-center">{{$loop->iteration}}</td>
-                        <td class="text-center">{{$item['nik']}}</td>
+                        {{-- <td class="text-center">{{$item['nik']}}</td> --}}
+                        <td class="text-center">{{$item['kis']}}</td>
                         <td class="text-center">{{$item['nama']}}</td>
                         <td class="text-center">{{$item['alamat']}}</td>
                         <td class="text-center">{{$item['phone']}}</td>
