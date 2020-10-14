@@ -116,8 +116,7 @@ class DashboardController extends Controller
     public function sendBidanMsg()
     {
         $bidan = Users::join('level', 'tb_user.level', 'level.id_level')->where('level.nama_level', 'not like', '%admin%')->get();
-        
-        return $bidan;
+        // $pasien = Pasien::
     }
 
     public function artikel()

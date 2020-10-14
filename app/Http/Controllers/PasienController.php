@@ -153,7 +153,8 @@ class PasienController extends Controller
             'bulan' => substr($hpht,5,2),
             'tahun' => substr($hpht,2,2),
         ];
-        $tgl_hpl = $hpht['tgl'] + 7;
+        // $tgl_hpl = $hpht['tgl'] + 7;
+        $tgl_hpl = $hpht['tgl'];
         $bln_hpl = $hpht['bulan'] - 3;
         $thn_hpl = $hpht['tahun'];
         if($bln_hpl != 0){
