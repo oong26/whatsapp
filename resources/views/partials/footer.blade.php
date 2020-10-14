@@ -63,6 +63,10 @@
 <script src="{{url('assets/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{url('assets/js/demo/chart-pie-demo.js')}}"></script>
 
+<!-- Time picker -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{{url('assets/js/tpicker.js')}}"></script>
+
 <script language="javascript" type="text/javascript">
   function windowClose() {
   window.open('','_parent','');

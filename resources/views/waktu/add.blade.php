@@ -13,24 +13,22 @@
               <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
             </div>
             <div class="card-body">
-                <form action="{{url('wewenang/store')}}" method="post">
+                <form action="{{url('waktu/store')}}" method="post">
                     @csrf
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="wewenang">Nama</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="wewenang" id="wewenang" class="form-control" value="{{old('wewenang')}}">  
-                            <small id="wewenang" style="color:red;" class="ml-2 form-text">{{$errors->first('wewenang')}}</small>
+                        <div class="col-6">
+                            <label class="col-sm-2" for="judul">Judul</label>
+                            <input type="text" name="judul" id="judul" class="form-control" value="{{old('judul')}}">  
+                            <small id="judul" style="color:red;" class="ml-2 form-text">{{$errors->first('judul')}}</small>
                         </div>
-                    </div>
-                    <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="wilayah">Desa(Wajib untuk bidan)</label>
-                        <div class="col-sm-10">
-                            <textarea name="wilayah" id="wilayah" cols="30" rows="5" class="form-control">{{old('wilayah')}}</textarea> 
-                            <small id="wilayah" style="color:red;" class="ml-2 form-text ">{{$errors->first('wilayah')}}</small> 
+                        <div class="col-6">
+                            <label class="col-sm-2" for="jam">Jam</label>
+                            <input type="time" class="form-control" name="jam" id="jam">
+                            <small id="jam" style="color:red;" class="ml-2 form-text">{{$errors->first('jam')}}</small>
                         </div>
                     </div>
                     <div class="form-group float-right">
-                        <a class="text-decoration-none" href="{{url('wewenang')}}">
+                        <a class="text-decoration-none" href="{{url('waktu')}}">
                             <input class="btn btn-danger" type="button" value="Batal">
                         </a>
                         <input type="submit" value="Tambah" class="btn btn-primary">

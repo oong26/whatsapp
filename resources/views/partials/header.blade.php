@@ -21,6 +21,9 @@
   <!-- Custom styles for this page -->
   <link href="{{url('assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
+  <!-- Time picker -->
+  <link href="{{url('assets/css/tpicker.css')}}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">

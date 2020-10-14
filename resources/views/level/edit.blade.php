@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="wilayah">Wilayah(Opsinal)</label>
+                        <label class="col-sm-2" for="wilayah">Desa(Wajib untuk bidan)</label>
                         <div class="col-sm-10">
                             <textarea name="wilayah" id="wilayah" cols="30" rows="5" class="form-control">{{$item['wilayah']}}</textarea>
                             <small id="wilayah" style="color:red;" class="ml-2 form-text ">{{$errors->first('wilayah')}}</small>  

@@ -16,48 +16,44 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-<link href="{{url('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
 </head>
 
-<body class="bg-gradient-primary">
+<body >
 
   <div class="container">
 
     <!-- Outer Row -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="margin-top: 10%;">
 
-      <div class="col-xl-8 col-lg-10 col-md-8 m-5">
+      <div class="col-xl-10 col-lg-12 col-md-9">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-2">
+          <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              {{-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> --}}
-              @include('sweetalert::alert')
-              <div class="col-lg-12">
-                <div class="p-5">
+              <div class="col-lg-4 d-none d-lg-block justify-content-center" style="padding:10px;">
+                <img class="bg-login-image" src="{{url('assets/img/icon_pemkab.png')}}" alt="">
+              </div>
+              <div class="col-lg-8 p-4 border-left-login">
+                <div class="p-3">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">{{$title}}</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Login</h1>
                   </div>
                   <form action="login-process" class="user" method="POST">
-                      @csrf
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="inputUsername" name="username" placeholder="Masukkan Username">
-                      <small id="inputUsername" style="color:red;" class="ml-2 form-text ">{{$errors->first('username')}}</small>
-                    </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="inputPassword" name="password" placeholder="Masukkan Password">
-                      <small id="inputPassword" style="color:red;" class="ml-2 form-text ">{{$errors->first('password')}}</small>
-                    </div>
-                    {{-- <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
-                    </div> --}}
-                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
-                  </form>
+                    @csrf
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="inputUsername" name="username" placeholder="Masukkan Username">
+                    <small id="inputUsername" style="color:red;" class="ml-2 form-text ">{{$errors->first('username')}}</small>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control form-control-user" id="inputPassword" name="password" placeholder="Masukkan Password">
+                    <small id="inputPassword" style="color:red;" class="ml-2 form-text ">{{$errors->first('password')}}</small>
+                  </div>
+                  <input type="submit" class="btn btn-user btn-block" value="Login" style="background-color: #25D366; color:white;">
+                </form>
+                  <hr>
                 </div>
               </div>
             </div>
@@ -70,15 +66,15 @@
 
   </div>
 
-  <!-- Bootstrap core JavaScript-->
+<!-- Bootstrap core JavaScript-->
 <script src="{{url('assets/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="{{url('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{url('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{url('assets/js/sb-admin-2.min.js')}}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{{url('assets/js/sb-admin-2.min.js')}}"></script>
 
 </body>
 

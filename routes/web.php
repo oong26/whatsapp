@@ -28,6 +28,12 @@ Route::get('msg', 'DashboardController@msg');
 
 Route::get('send-msg', 'DashboardController@sendMsg');
 
+Route::get('send-bidan', 'DashboardController@sendBidanMsg');
+
+Route::get('artikel', 'DashboardController@artikel');
+
+Route::post('send-artikel', 'DashboardController@sendArtikel');
+
 Route::prefix('profil')->group(function(){
     
     Route::get('edit/{id}', 'ProfileController@index');
@@ -83,5 +89,23 @@ Route::prefix('wewenang')->group(function(){
     Route::get('delete/{id}', 'LevelController@delete');
 
     Route::post('update', 'LevelController@update');
+
+});
+
+Route::prefix('waktu')->group(function(){
+    
+    Route::get('', 'WaktuController@index');
+    
+    Route::get('tambah', 'WaktuController@add');
+
+    Route::post('store', 'WaktuController@store');
+    
+    Route::get('edit/{id}', 'WaktuController@edit');
+    
+    Route::get('delete/{id}', 'WaktuController@delete');
+
+    Route::post('update', 'WaktuController@update');
+
+    Route::get('update-active/{id}/{value}', 'WaktuController@updateActive');
 
 });

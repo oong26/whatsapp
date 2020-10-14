@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PasienExport;
 use App\Pasien;
 use App\Users;
+use App\Level;
 
 class PasienController extends Controller
 {
@@ -45,7 +46,9 @@ class PasienController extends Controller
                             ->where('level.nama_level', 'not like', '%Admin%')
                             ->get();
             
-            return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien')->with('bidan', $bidan);
+            $desa = Level::groupBy('wilayah')->get();
+            
+            return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien')->with('bidan', $bidan)->with('desa', $desa);
         }
         else{
             return redirect('login');

@@ -7,13 +7,14 @@ use App\Pasien;
 use App\Chat;
 use App\Device;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+// use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Hash;
-use GuzzleHttp\Pool;
+// use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
+// use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use File;
 
 class DashboardController extends Controller
 {
@@ -75,29 +76,6 @@ class DashboardController extends Controller
 
     public function sendMsg(/*Request $req*/)
     {
-        $user = Users::get();
-        //Chat API
-        // for($i=0;$i<sizeof($user);$i++){
-        //     $mobile=$user[$i]->phone;
-        //     $message=$user[$i]->name.", ".$user[$i]->obat;
-        //     $data = [
-        //         'phone' => $mobile, // Receivers phone
-        //         'body' => $message, // Message
-        //     ];
-        
-        //     $json = json_encode($data); // Encode data to JSON
-        //     // URL for request POST /message
-        //     $url = 'https://eu54.chat-api.com/instance176181/message?token=vuiodfsprq255oa6';
-        //     // Make a POST request
-        //     $options = stream_context_create(['http' => [
-        //             'method'  => 'POST',
-        //             'header'  => 'Content-type: application/json',
-        //             'content' => $json
-        //         ]
-        //     ]);
-        //     // Send a request
-        //     $result = file_get_contents($url, false, $options);
-        // }
         $pasien = Pasien::all();
 		// return $req->id_device;
 		$client = new Client();
@@ -107,7 +85,7 @@ class DashboardController extends Controller
             for($i=0;$i<count($pasien);$i++){
                 $no = $pasien[$i]['phone'];
                 $nama = $pasien[$i]['nama'];
-                $pesan = $nama.' '.$pasien[$i]['pesan'].'. Dengan resep dibawah ini : \n'.$pasien[$i]['resep']. ' \nPesan diterima setiap jam 19.00.';
+                $pesan = $nama.' '.$pasien[$i]['pesan'].'. Dengan resep dibawah ini : '.$pasien[$i]['resep']. ' Pesan diterima setiap jam 19.00.';
                 
                 //Dinamis
                 $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
@@ -133,6 +111,64 @@ class DashboardController extends Controller
             return 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.';
         }
 		
+    }
+
+    public function sendBidanMsg()
+    {
+        $bidan = Users::join('level', 'tb_user.level', 'level.id_level')->where('level.nama_level', 'not like', '%admin%')->get();
+        
+        return $bidan;
+    }
+
+    public function artikel()
+    {
+        return view('artikel')->with('title', 'Artikel')->with('text', 'Pesan sudah terkirim. Silahkan tutup halaman ini.');
+    }
+
+    public function sendArtikel(\Illuminate\Http\Request $req)
+    {
+        $this->validate($req,[
+            'file' => 'required',
+        ]);
+
+        $artikel = $req->file('file');
+        $upload_path = 'file_artikel';
+        $pesan = $req->pesan;
+
+        if($artikel != null){
+            $artikel->move($upload_path, $artikel->getClientOriginalName());
+            $file_url = url('file_artikel/'.$artikel->getClientOriginalName());
+            $pasien = Pasien::all();
+            // return $req->id_device;
+            $client = new Client();
+            $device = Device::where('status', 'connected')->get();
+            
+            if(count($device) == 1){
+                for($i=0;$i<count($pasien);$i++){
+                    $no = $pasien[$i]['phone'];
+                    $nama = $pasien[$i]['nama'];
+                    
+                    //Dinamis
+                    $r = $client->request('POST', 'http://localhost:8000/waapi/sendFile', [
+                            'form_params' => [
+                            'id_device' => $device[0]['id'],
+                            'to' => $no,
+                            'pesan' => $pesan,
+                            'fileurl' => $file_url,
+                            'filename' => $artikel->getClientOriginalName()
+                        ]
+                    ]);
+
+                }
+                return view('msg')->with('title','Pesan')->with('text', 'Artikel sudah terkirim. Silahkan tutup halaman ini.');
+            }
+            else{
+                return 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.';
+            }
+        }
+        else{
+            return 'kosong';
+        }
     }
 
 }

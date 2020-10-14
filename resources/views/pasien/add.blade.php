@@ -69,6 +69,18 @@
                     @else
                     {{-- user = super admin atau admin --}}
                     <div class="form-group row ml-2">
+                        <label class="col-sm-2" for="desa">Desa</label>
+                        <div class="col-sm-10">
+                            <select name="desa" id="desa" class="form-control">
+                                <option value="">Pilih desa</option>
+                                @foreach ($desa as $item)
+                                <option value="{{$item['id_desa']}}">{{$item['desa']}}</option>
+                                @endforeach
+                            </select>
+                            <small id="desa" style="color:red;" class="ml-2 form-text ">{{$errors->first('tgl')}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group row ml-2">
                         <label class="col-sm-2" for="bidan">Bidan</label>
                         <div class="col-sm-10">
                             <select name="bidan" id="bidan" class="form-control">
