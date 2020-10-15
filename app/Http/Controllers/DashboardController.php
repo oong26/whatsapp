@@ -105,18 +105,44 @@ class DashboardController extends Controller
                 //     ]
                 // ]);
             }
-            return redirect('msg');
+            return view('msg')->with('title', 'Artikel')->with('text', 'Pesan sudah terkirim. Silahkan tutup halaman ini.');
         }
         else{
-            return 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.';
+            return view('msg')->with('title','Pesan')->with('text', 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.');
         }
 		
     }
 
     public function sendBidanMsg()
     {
-        $bidan = Users::join('level', 'tb_user.level', 'level.id_level')->where('level.nama_level', 'not like', '%admin%')->get();
-        // $pasien = Pasien::
+        $client = new Client();
+        $device = Device::where('status', 'connected')->get();
+
+        if(count($device) == 1){
+            $pasien = Pasien::select('pasien.nama','pasien.id_user','pasien.tgl_hpl','tb_user.nama as bidan','tb_user.phone')
+                            ->join('tb_user','tb_user.id','pasien.id_user')
+                            ->get();
+            $phone = null;
+            for ($i=0; $i < count($pasien) ; $i++) { 
+                $hpl = substr($pasien[$i]['tgl_hpl'], 0,10);
+                $phone = $pasien[$i]['phone'];
+                $pesan = 'Hallo bidan '.$pasien[$i]['bidan'].'. Pasien anda yang bernama '.$pasien[$i]['nama'].' akan melakukan persalinan 10 hari lagi.';
+                if($hpl == substr(now(),0,10)){
+                    $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+                            'form_params' => [
+                            'id_device' => $device[0]['id'],
+                            'to' => $phone,
+                            'pesan' => $pesan
+                        ]
+                    ]);
+                }
+            }
+
+            return view('msg')->with('title', 'Artikel')->with('text', 'Notifikasi sudah terkirim kepada bidan. Silahkan tutup halaman ini.');
+        }
+        else{
+            return view('msg')->with('title','Pesan')->with('text', 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.');
+        }
     }
 
     public function artikel()
@@ -162,11 +188,11 @@ class DashboardController extends Controller
                 return view('msg')->with('title','Pesan')->with('text', 'Artikel sudah terkirim. Silahkan tutup halaman ini.');
             }
             else{
-                return 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.';
+                return view('msg')->with('title','Pesan')->with('text', 'Silahkan hubungkan hp anda dengan whatsapp web terlebih dahulu.');
             }
         }
         else{
-            return 'kosong';
+            return view('msg')->with('title','Pesan')->with('text', 'Artikel kosong');
         }
     }
 

@@ -43,8 +43,10 @@
                         <td class="text-center">{{$item['nama_level']}}</td>
                         <td class="text-center">{{$item['wilayah']}}</td>
                         <td class="text-center">
+                          @if ($item['id_level'] != 1)
                           <a class="m-1" href="{{url('wewenang/edit/'.$item->id_level)}}"> <span class="fa fa-pen" style="color:#4e73df;"></span></a>
                           <a class="m-1" href="{{url('wewenang/delete/'.$item->id_level)}}"> <span class="fa fa-trash" style="color:#e74a3b;"></span></a>
+                          @endif
                         </td>
                       </tr>
                   @endforeach

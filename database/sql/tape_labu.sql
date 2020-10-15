@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2020 at 11:02 PM
+-- Generation Time: Oct 15, 2020 at 09:21 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -88,6 +88,31 @@ INSERT INTO `chat` (`id_chat`, `dari`, `tujuan`, `gambar`, `id_user`, `status`, 
 (15, NULL, '6285156623438', NULL, 9, 'mengirim pesan', 'tes', 'Thu Oct 01 2020 11:39:16 GMT+0700 (Western Indonesia Time)', 10, NULL, NULL, NULL, '2020-10-14 19:47:44'),
 (16, NULL, '6285331053300', NULL, 9, 'mengirim pesan', 'tes', 'Thu Oct 01 2020 11:45:22 GMT+0700 (Western Indonesia Time)', 11, NULL, NULL, NULL, '2020-10-14 19:47:44'),
 (17, NULL, '6285331053300', NULL, 9, 'mengirim pesan', 'asd', 'Sat Oct 10 2020 02:08:38 GMT+0700 (Western Indonesia Time)', 11, NULL, NULL, NULL, '2020-10-14 19:47:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `desa`
+--
+
+CREATE TABLE `desa` (
+  `id` int(1) NOT NULL,
+  `desa` varchar(13) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `desa`
+--
+
+INSERT INTO `desa` (`id`, `desa`) VALUES
+(1, 'Baratan'),
+(2, 'Bendelan'),
+(3, 'Binakal'),
+(4, 'Gadingsari'),
+(5, 'Jeruksoksok'),
+(6, 'Kembangan'),
+(7, 'Sumber Tengah'),
+(8, 'Sumberwaru');
 
 -- --------------------------------------------------------
 
@@ -1273,10 +1298,10 @@ CREATE TABLE `pasien` (
 INSERT INTO `pasien` (`id`, `nik`, `kis`, `nama`, `alamat`, `phone`, `resep`, `pesan`, `tgl_hpht`, `tgl_hpl`, `id_user`, `status`, `created_at`, `updated_at`) VALUES
 (3, '3271046504930003', '', 'Pratama', 'Sukowiryo', '6281285605105', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '0000-00-00 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:28:54'),
 (4, '3271046504930004', '', 'Celine', 'Tenggarang', '6285655508587', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '0000-00-00 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:28:35'),
-(6, '3271046504930002', '', 'Oong', 'Wonosari', '6285331053300', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-05 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:00:27'),
+(6, '3271046504930002', '', 'Oong', 'Wonosari', '6285331053300', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-15 00:00:00', '2020-10-16 12:03:46', 62, 'Merah', '2020-10-05 15:00:27', '2020-10-05 15:00:27'),
 (8, '3271046504930112', '', 'Ahmad Wildan', 'Bondowoso, pujer', '6285474996325', 'Tes Whatsapp gateway', 'Ayo minum obat hamil mu', '2020-08-12 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:18:42', '2020-10-11 15:18:42'),
 (9, '3271046504930122', '', 'Arsyad Arthan N.', 'Bondowoso', '6282247623501', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-09-17 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:19:56', '2020-10-11 15:19:56'),
-(10, '3271046504932222', '', 'Inant Kharisma', 'Bondowoso', '6282334879916', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-08 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:20:45', '2020-10-11 15:20:45'),
+(10, '3271046504932222', '', 'Inant Kharisma', 'Bondowoso', '6282334879916', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-10-08 00:00:00', '2020-10-15 12:03:46', 63, 'Merah', '2020-10-11 15:20:45', '2020-10-11 15:20:45'),
 (11, '3271046504930032', '', 'Zakiyah Nur Kholisoh', 'Bondowoso', '6282274312032', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-09-18 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:21:41', '2020-10-11 15:21:41'),
 (12, '3271046504930341', '', 'Israfatul Furaidah', 'Bondowoso', '6282332457579', 'Tes Whatsapp Gateway', 'Ayo minum obat hamil mu', '2020-06-11 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 15:22:22', '2020-10-11 15:22:22'),
 (13, '3271046504930123', '', 'Raihan Wahyu Saputra', 'Bondowoso', '6281805200948', 'Tes Whatsapp Gateway', NULL, '2020-08-13 00:00:00', '2020-10-13 12:03:46', 63, 'Merah', '2020-10-11 17:12:48', '2020-10-11 17:12:48'),
@@ -1412,7 +1437,14 @@ INSERT INTO `pesan` (`id`, `body`, `tp`, `fr`, `tu`, `datetime`, `status`) VALUE
 (93, '\nPesan', 'chat', '6282143403936@c.us', '6285156623438@c.us', NULL, -1),
 (94, 'Tetep', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
 (95, 'Maksudnya apa ya?', 'chat', '6282274312032@c.us', '6285156623438@c.us', NULL, -1),
-(96, 'Siap', 'chat', '6281230164412@c.us', '6285156623438@c.us', NULL, -1);
+(96, 'Siap', 'chat', '6281230164412@c.us', '6285156623438@c.us', NULL, -1),
+(97, 'Aku ga hamil mas', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
+(98, 'Tidur mas dah malem', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
+(99, 'Kesehatan mu lo', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
+(100, 'Uuww', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
+(101, 'Semangat semangat', 'chat', '6282334879916@c.us', '6285156623438@c.us', NULL, -1),
+(102, 'gaskeun mamang', 'chat', '6281805200948@c.us', '6285156623438@c.us', NULL, -1),
+(103, 'linting linting manjah', 'chat', '6281805200948@c.us', '6285156623438@c.us', NULL, -1);
 
 -- --------------------------------------------------------
 
@@ -1461,11 +1493,11 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id`, `nama`, `alamat`, `ket`, `email`, `username`, `password`, `phone`, `level`, `status`, `token`, `id_kantor`, `created_at`, `updated_at`) VALUES
-(9, 'Mamat', '', NULL, 'mamat@gmail.com', 'mamat', '123456', '', 1, '1', NULL, 0, '2020-10-13 04:22:16', '2020-10-13 04:22:16'),
-(62, 'Bidan Anggun', NULL, NULL, NULL, 'anggun', '123456', '', 2, '1', NULL, 0, '2020-10-13 04:22:16', '2020-10-13 14:28:25'),
-(63, 'Bidan Ayu', NULL, NULL, NULL, 'cbpati', '123456', '', 2, '1', NULL, 2, '2020-10-13 04:22:16', '2020-10-13 14:26:59'),
-(66, 'Bidan Dinda', 'bondowoso', NULL, NULL, 'dinda', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:22:16', '2020-10-13 14:28:43'),
-(67, 'Bidan AB', 'Bondowoso', NULL, NULL, 'bidanab', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:58:03', '2020-10-13 04:58:03');
+(9, 'Master', 'Bondowoso', NULL, NULL, 'master', '123456', '6285331053300', 1, '1', NULL, 0, '2020-10-13 04:22:16', '2020-10-15 18:42:30'),
+(62, 'Bidan Celine', NULL, NULL, NULL, 'anggun', '123456', '6285655508587', 2, '1', NULL, 0, '2020-10-13 04:22:16', '2020-10-13 14:28:25'),
+(63, 'Zakiyah', NULL, NULL, NULL, 'cbpati', '123456', '6282274312032', 2, '0', NULL, 2, '2020-10-13 04:22:16', '2020-10-15 18:48:55'),
+(66, 'Dinda', 'bondowoso', NULL, NULL, 'dinda', '123456', '6282332457579', 3, '1', NULL, NULL, '2020-10-13 04:22:16', '2020-10-13 14:28:43'),
+(67, 'AB', 'Bondowoso', NULL, NULL, 'bidanab', '123456', '', 3, '1', NULL, NULL, '2020-10-13 04:58:03', '2020-10-13 04:58:03');
 
 -- --------------------------------------------------------
 
@@ -1502,6 +1534,12 @@ ALTER TABLE `autoreply`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`id_chat`);
+
+--
+-- Indexes for table `desa`
+--
+ALTER TABLE `desa`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `device`
@@ -1592,6 +1630,12 @@ ALTER TABLE `chat`
   MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `desa`
+--
+ALTER TABLE `desa`
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `device`
 --
 ALTER TABLE `device`
@@ -1643,7 +1687,7 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `pesan`
 --
 ALTER TABLE `pesan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `product`

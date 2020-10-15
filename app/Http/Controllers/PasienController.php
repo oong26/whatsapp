@@ -10,6 +10,7 @@ use App\Exports\PasienExport;
 use App\Pasien;
 use App\Users;
 use App\Level;
+use App\Desa;
 
 class PasienController extends Controller
 {
@@ -17,11 +18,17 @@ class PasienController extends Controller
     {        
         if(Session::get('user_id') != null){
             $data = null;
+            $desa = Desa::all();
             $user = Users::join('level', 'tb_user.level', 'level.id_level')
                         ->where([
                             ['level.nama_level', 'not like', '%Admin%'],
                             ['tb_user.id', Session::get('user_id')]
                         ])->get();
+            
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                        ->where('level.nama_level', 'not like', '%Admin%')
+                        ->get();                
+
 
             if($user->isEmpty()){
                 //jika user adalah super admin atau admin
@@ -32,7 +39,7 @@ class PasienController extends Controller
                 $data = Pasien::where('id_user', Session::get('user_id'))->orderBy('updated_at', 'DESC')->get();
             }
             
-            return view('pasien.index')->with('app_title', 'WhatsApp API')->with('title','Lihat Pasien')->with('data', $data);
+            return view('pasien.index')->with('app_title', 'Tape Labu')->with('title','Lihat Pasien')->with('data', $data)->with('bidan',$bidan)->with('desa',$desa)->with('pilih_desa','')->with('pilih_bidan','');
         }
         else{
             return redirect('login');
@@ -300,6 +307,71 @@ class PasienController extends Controller
             $data = Pasien::select('nama','phone')->get();
 
             return Excel::download(new PasienExport($data),'pasien.xlsx');
+        }
+        else{
+            return redirect('login');
+        }
+    }
+
+    public function getPasienBy($desa,$id)
+    {
+        if(Session::get('user_id') != null){
+            $data_desa = Desa::all();
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                        ->where('level.nama_level', 'not like', '%Admin%')
+                        ->get();           
+
+            $data = Pasien::select('pasien.*','tb_user.id','level.id_level','level.wilayah')
+                            ->join('tb_user','tb_user.id','pasien.id_user')
+                            ->join('level','level.id_level','tb_user.level')
+                            ->where([
+                                ['level.wilayah', 'like', '%'.$desa.'%'],
+                                ['pasien.id_user', '=', $id]
+                            ])
+                            ->get();
+            // return $data;
+            return view('pasien.index')->with('app_title', 'Tape Labu')->with('title','Lihat Pasien')->with('data', $data)->with('bidan',$bidan)->with('desa', $data_desa)->with('pilih_desa',$desa)->with('pilih_bidan',$id);
+        }
+        else{
+            return redirect('login');
+        }
+    }
+
+    public function getPasienByDesa($desa)
+    {
+        if(Session::get('user_id') != null){
+            $data_desa = Desa::all();
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                        ->where('level.nama_level', 'not like', '%Admin%')
+                        ->get();           
+
+            $data = Pasien::select('pasien.*','tb_user.id','level.id_level','level.wilayah')
+                            ->join('tb_user','tb_user.id','pasien.id_user')
+                            ->join('level','level.id_level','tb_user.level')
+                            ->where('level.wilayah', 'like', '%'.$desa.'%')
+                            ->get();
+            // return $data;
+            return view('pasien.index')->with('app_title', 'Tape Labu')->with('title','Lihat Pasien')->with('data', $data)->with('bidan',$bidan)->with('desa', $data_desa)->with('pilih_desa',$desa)->with('pilih_bidan','');
+        }
+        else{
+            return redirect('login');
+        }
+    }
+
+    public function getPasienByBidan($id)
+    {
+        if(Session::get('user_id') != null){
+            $data_desa = Desa::all();
+            $bidan = Users::join('level', 'tb_user.level', 'level.id_level')
+                        ->where('level.nama_level', 'not like', '%Admin%')
+                        ->get();           
+
+            $data = Pasien::select('pasien.*','tb_user.id')
+                            ->join('tb_user','tb_user.id','pasien.id_user')
+                            ->where('pasien.id_user', '=', $id)
+                            ->get();
+            // return $data;
+            return view('pasien.index')->with('app_title', 'Tape Labu')->with('title','Lihat Pasien')->with('data', $data)->with('bidan',$bidan)->with('desa', $data_desa)->with('pilih_desa','')->with('pilih_bidan',$id);
         }
         else{
             return redirect('login');

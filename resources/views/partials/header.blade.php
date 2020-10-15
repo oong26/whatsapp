@@ -9,7 +9,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Whatsapp | API</title>
+  <title>Tape Labu - {{$title}}</title>
+  
+  <link rel="shortcut icon" href="{{ url('assets/img/icon_pemkab.png')}}" />
 
   <!-- Custom fonts for this template-->
   <link href="{{url('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -23,7 +25,7 @@
 
   <!-- Time picker -->
   <link href="{{url('assets/css/tpicker.css')}}" rel="stylesheet">
-
+  
 </head>
 
 <body id="page-top">

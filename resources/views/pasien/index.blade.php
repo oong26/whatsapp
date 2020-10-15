@@ -17,7 +17,36 @@
          <div class="card shadow mb-4">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Pasien({{count($data)}})</h6>
+            @if (Session::get('level') == 1)
             <a href="{{url('pasien/export')}}" class="float-right d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Excel</a>
+            <div class="row mt-4">
+              <label class="p-2">Pilih berdasarkan</label>
+              <div class="col-3">
+                <select name="pilih_desa" id="pilih_desa" onchange="pilihDesa()" class="form-control">
+                  <option value="">Desa</option>
+                  @foreach ($desa as $item)
+                  @if ($pilih_desa == $item['desa'])
+                  <option value="{{$item['desa']}}" selected>{{$item['desa']}}</option>
+                  @else
+                  <option value="{{$item['desa']}}">{{$item['desa']}}</option>
+                  @endif
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-3">
+                <select name="" id="pilih_bidan" onchange="pilihBidan()" class="form-control">
+                  <option value="">Bidan</option>
+                  @foreach ($bidan as $item)
+                  @if ($pilih_bidan == $item['id'])
+                  <option value="{{$item['id']}}" selected>{{$item['nama']}} - {{$item['wilayah']}}</option>
+                  @else
+                  <option value="{{$item['id']}}">{{$item['nama']}} - {{$item['wilayah']}}</option>
+                  @endif
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            @endif
           </div>
           <div class="card-body">
             <div class="table-responsive">

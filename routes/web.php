@@ -55,6 +55,8 @@ Route::prefix('akun')->group(function(){
     Route::get('delete/{id}', 'UserController@delete');
 
     Route::post('update', 'UserController@update');
+    
+    Route::get('export', 'UserController@export');
 
 });
 
@@ -73,6 +75,12 @@ Route::prefix('pasien')->group(function(){
     Route::post('update', 'PasienController@update');
 
     Route::get('export', 'PasienController@export');
+
+    Route::get('by/{desa}/{id}', 'PasienController@getPasienBy');
+
+    Route::get('by-desa/{desa}', 'PasienController@getPasienByDesa');
+
+    Route::get('by-bidan/{id}', 'PasienController@getPasienByBidan');
 
 });
 

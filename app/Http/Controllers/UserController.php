@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BidanExport;
 use App\Users;
 use App\Level;
 
@@ -145,5 +147,18 @@ class UserController extends Controller
         else{
             return redirect('login');
         }   
+    }
+
+    public function export()
+    {
+        if(Session::get('user_id') != null){
+            // return Excel::download(new PasienExport,'pasien.xlsx');
+            $data = Users::select('nama','phone','level')->where('level','!=',1)->get();
+
+            return Excel::download(new BidanExport($data),'bidan.xlsx');
+        }
+        else{
+            return redirect('login');
+        }
     }
 }

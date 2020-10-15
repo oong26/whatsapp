@@ -73,6 +73,33 @@
   window.close();
   }
 </script>
+<script type="text/javascript">
+  function pilihDesa() {
+    var value = document.getElementById("pilih_desa").value;
+    if(value != ""){
+      window.location.href = '{{url('pasien/by-desa')}}/'+value;
+    }
+    else{
+      window.location.href = '{{url('pasien')}}';
+    }
+  }
+  function pilihBidan() {
+    var value1 = document.getElementById("pilih_desa").value;
+    var value2 = document.getElementById("pilih_bidan").value;
+    
+    if(value2 != ''){
+      if(value1 == '' && value2 != ''){
+        window.location.href = '{{url('pasien/by-bidan/')}}/' + value2;
+      }
+      if(value1 != '' && value2 != ''){
+        window.location.href = '{{url('pasien/by/')}}/' + value1+'/'+value2;
+      }
+    }
+    else{
+      window.location.href = '{{url('pasien')}}';
+    }
+  }
+  </script>
 
 </body>
 
