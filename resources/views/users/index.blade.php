@@ -27,6 +27,7 @@
                     <th class="text-center">#</th>
                     <th class="text-center">Nama</th>
                     <th class="text-center">Alamat</th>
+                    <th class="text-center">No. Telp</th>
                     <th class="text-center">Username</th>
                     <th class="text-center">Wewenang</th>
                     <th class="text-center">Aksi</th>
@@ -37,6 +38,7 @@
                     <th class="text-center">#</th>
                     <th class="text-center">Nama</th>
                     <th class="text-center">Alamat</th>
+                    <th class="text-center">No. Telp</th>
                     <th class="text-center">Username</th>
                     <th class="text-center">Wewenang</th>
                     <th class="text-center">Aksi</th>
@@ -54,6 +56,7 @@
                             {{$item['alamat']}}
                           @endif
                         </td>
+                        <td class="text-center">{{$item['phone']}}</td>
                         <td class="text-center">{{$item['username']}}</td>
                         <td class="text-center">{{$item['nama_level']}} - {{$item['wilayah']}}</td>
                         <td class="text-center">

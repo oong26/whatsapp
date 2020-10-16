@@ -28,7 +28,7 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    @if ((Session::get('nama_level') == 'Super Admin' || Session::get('nama_level') == 'Admin'))
+    @if (Session::get('nama_level') == 'Super Admin')
     {{-- jika admin --}}
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -77,6 +77,34 @@
         <i class="fas fa-fw fa-file"></i>
         <span>Artikel</span></a>
     </li>
+    @elseif(Session::get('nama_level') == 'Admin')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-user-md"></i>
+        <span>Akun</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Akun</h6>
+          <a class="collapse-item" href="{{url('akun')}}">Lihat</a>
+          <a class="collapse-item" href="{{url('akun/tambah')}}">Tambah</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <i class="fas fa-fw fa-female"></i>
+        <span>Pasien</span>
+      </a>
+      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Pasien Ibu hamil</h6>
+          <a class="collapse-item" href="{{url('pasien')}}">Lihat</a>
+          <a class="collapse-item" href="{{url('pasien/tambah')}}">Tambah</a>
+        </div>
+      </div>
+    </li>
     @else
     {{-- jika bidan --}}
     <li class="nav-item">
@@ -94,7 +122,7 @@
     </li>
     @endif
 
-    @if ((Session::get('nama_level') == 'Super Admin' || Session::get('nama_level') == 'Admin'))
+    @if (Session::get('nama_level') == 'Super Admin')
     {{-- jika admin --}}
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -111,7 +139,7 @@
       </a>
       <div id="collapseWA" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Pasien Ibu hamil</h6>
+          <h6 class="collapse-header">Pengaturan WhatsApp</h6>
           <a class="collapse-item" href="http://localhost:8000/" target="_blank">Server</a>
           <a class="collapse-item" href="{{url('waktu')}}">Waktu penjadwalan</a>
         </div>

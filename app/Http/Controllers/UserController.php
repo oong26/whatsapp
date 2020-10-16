@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         if(Session::get('user_id') != null){
-            $data = Users::join('level','tb_user.level', 'level.id_level')->get();
+            $data = Users::join('level','tb_user.level', 'level.id_level')->orderBy('tb_user.level','asc')->get();
             
             return view('users.index')->with('app_title', 'WhatsApp API')->with('title', 'Lihat akun')->with('data',$data);
         }
@@ -41,7 +41,7 @@ class UserController extends Controller
         if(Session::get('user_id') != null){
             $this->validate($req,[  
                 'nama' => 'required|min:3|max:50',
-                'username' => 'required|min:3|max:30',
+                'username' => 'required|min:3|max:30|unique:tb_user',
                 'password' => 'required|min:3',
                 'level' => 'required',
             ]);
@@ -53,6 +53,7 @@ class UserController extends Controller
                     'status' => 1,
                     'alamat' => $req->alamat,
                     'level' => $req->level, 
+                    'phone' => '62'.$req->phone,
                     'username' => $req->username,
                     'password' => $req->password
                 ]);
@@ -61,7 +62,7 @@ class UserController extends Controller
                 return redirect('akun');
             }
             catch(\Illuminate\Database\QueryException $e){
-                alert()->error('Error', 'Gagal');
+                alert()->error('Error', $e->getMessage());
                 return redirect()->back();
             }
         }
@@ -107,7 +108,7 @@ class UserController extends Controller
         if(Session::get('user_id') != null){
             $this->validate($req,[  
                 'nama' => 'required|min:3|max:50',
-                'username' => 'required|min:3|max:30',
+                'username' => 'required|min:3|max:30|unique:tb_user',
                 'level' => 'required',
                 'status' => 'required'
             ]);
@@ -118,6 +119,7 @@ class UserController extends Controller
                     'email' => $req->email,
                     'alamat' => $req->alamat,
                     'level' => $req->level, 
+                    'phone' => '62'.$req->phone,
                     'username' => $req->username,
                     'updated_at' => now()
                 ]);

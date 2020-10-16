@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="resep">Resep</label>
+                        <label class="col-sm-2" for="resep">Pesan</label>
                         <div class="col-sm-10">
                             <textarea name="resep" id="resep" cols="40" rows="5" class="form-control">{{$item['resep']}}</textarea>
                             <small id="resep" style="color:red;" class="ml-2 form-text ">{{$errors->first('resep')}}</small>  
@@ -68,14 +68,44 @@
                         <div class="col-sm-10">
                             <select name="bidan" id="bidan" class="form-control">
                                 <option value="">Pilih bidan</option>
-                                @foreach ($bidan as $item)
-                                    <option value="{{$item->id}}">{{$item->nama}} - {{$item->wilayah}}</option>
+                                @foreach ($bidan as $items)
+                                @if ($item['id_user'] == $items['id'])
+                                <option value="{{$items->id}}" selected>{{$items->nama}} - {{$items->wilayah}}</option>
+                                @else
+                                <option value="{{$items->id}}">{{$items->nama}} - {{$items->wilayah}}</option>
+                                @endif
                                 @endforeach
                             </select>
                             <small id="bidan" style="color:red;" class="ml-2 form-text ">{{$errors->first('bidan')}}</small>
                         </div>
                     </div>
                     @endif
+                    <div class="form-group row ml-2">
+                        <label class="col-sm-2" for="kondisi">Kondisi</label>
+                        <div class="col-sm-10">
+                            <select name="kondisi" id="kondisi" class="form-control">
+                                <option value="">Pilih status</option>
+                                @if($item['kondisi'] == 'Merah')
+                                <option value="Merah" selected>Merah</option>
+                                <option value="Kuning">Kuning</option>
+                                <option value="Hijau">Hijau</option>
+                                @elseif($item['kondisi'] == 'Kuning')
+                                <option value="Merah">Merah</option>
+                                <option value="Kuning" selected>Kuning</option>
+                                <option value="Hijau">Hijau</option>
+                                @elseif($item['kondisi'] == 'Hijau')
+                                <option value="Merah">Merah</option>
+                                <option value="Kuning">Kuning</option>
+                                <option value="Hijau" selected>Hijau</option>
+                                @else
+                                <option value="Merah">Merah</option>
+                                <option value="Kuning">Kuning</option>
+                                <option value="Hijau">Hijau</option>
+                                @endif
+                            </select>
+                            <small id="kondisi" style="color:red;" class="ml-2 form-text ">{{$errors->first('kondisi')}}</small>
+                        </div>
+                    </div>
                     <div class="form-group row ml-2">
                         <label class="col-sm-2" for="status">Status</label>
                         <div class="col-sm-10">

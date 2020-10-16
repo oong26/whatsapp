@@ -92,7 +92,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pesan terkirim hari ini</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pesan terkirim hari ini(Global)</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$data['chat_today']}}</div>
@@ -113,7 +113,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pesan gagal terkirim hari ini</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pesan gagal terkirim hari ini(Global)</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$data['failed_chat']}}</div>
@@ -127,23 +127,6 @@
                 </div>
               </div>
             </div>
-
-            {{-- <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> --}}
           </div>
 
           <!-- Content Row -->
@@ -364,22 +347,22 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>NIK</th>
+                      <th>KIS</th>
                       <th>Nama</th>
                       <th>Alamat</th>
                       <th>No.telp.</th>
-                      <th>Resep</th>
+                      <th>Pesan</th>
                       <th>Tanggal HPHT</th>
                       <th>Tanggal HPL</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <th>#</th>
-                    <th>NIK</th>
+                    <th>KIS</th>
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>No.telp.</th>
-                    <th>Resep</th>
+                    <th>Pesan</th>
                     <th>Tanggal HPHT</th>
                     <th>Tanggal HPL</th>
                   </tfoot>
@@ -387,7 +370,7 @@
                     @foreach ($data['data_pasien'] as $item)
                         <tr>
                           <td>{{$loop->iteration}}</td>
-                          <td>{{$item['nik']}}</td>
+                          <td>{{$item['kis']}}</td>
                           <td>{{$item['nama']}}</td>
                           <td>{{$item['alamat']}}</td>
                           <td>{{$item['phone']}}</td>

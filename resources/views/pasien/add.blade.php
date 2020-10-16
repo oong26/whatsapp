@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
-                        <label class="col-sm-2" for="resep">Resep</label>
+                        <label class="col-sm-2" for="resep">Pesan</label>
                         <div class="col-sm-10">
                             <textarea name="resep" id="resep" cols="40" rows="5" class="form-control">{{old('resep')}}</textarea> 
                             <small id="resep" style="color:red;" class="ml-2 form-text ">{{$errors->first('resep')}}</small> 
@@ -62,6 +62,18 @@
                         <div class="col-sm-10">
                             <input type="date" name="tgl" id="tgl" class="form-control" value="{{old('tgl')}}">
                             <small id="tgl" style="color:red;" class="ml-2 form-text ">{{$errors->first('tgl')}}</small>
+                        </div>
+                    </div>
+                     <div class="form-group row ml-2">
+                        <label class="col-sm-2" for="kondisi">Kondisi</label>
+                        <div class="col-sm-10">
+                            <select name="kondisi" id="kondisi" class="form-control">
+                                <option value="">Pilih status</option>
+                                <option value="Merah">Merah</option>
+                                <option value="Kuning">Kuning</option>
+                                <option value="Hijau">Hijau</option>
+                            </select>
+                            <small id="kondisi" style="color:red;" class="ml-2 form-text ">{{$errors->first('kondisi')}}</small>
                         </div>
                     </div>
                     @if (!(Session::get('nama_level') == 'Super Admin' || Session::get('nama_level') == 'Admin'))

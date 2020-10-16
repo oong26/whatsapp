@@ -18,28 +18,35 @@
                     <div class="form-group row ml-2">
                         <label class="col-sm-2" for="nama">Nama</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" id="nama" class="form-control">  
+                            <input type="text" name="nama" id="nama" class="form-control" value="{{$old('nama')}}">  
                             <small id="nama" style="color:red;" class="ml-2 form-text ">{{$errors->first('nama')}}</small>
                         </div>
                     </div>
                     <div class="form-group row ml-2">
                         <label class="col-sm-2" for="alamat">Alamat</label>
                         <div class="col-sm-10">
-                            <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control"></textarea>  
+                            <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control">{{$old('alamat')}}</textarea>  
                             <small id="alamat" style="color:red;" class="ml-2 form-text ">{{$errors->first('alamat')}}</small>
                         </div>
                     </div>
                     <div class="form-group row ml-2">
                         <label class="col-sm-2" for="ket">Keterangan(Opsional)</label>
                         <div class="col-sm-10">
-                            <textarea name="ket" id="ket" cols="30" rows="5" class="form-control"></textarea>  
+                            <textarea name="ket" id="ket" cols="30" rows="5" class="form-control">{{$old('nama')}}</textarea>  
                             <small id="ket" style="color:red;" class="ml-2 form-text ">{{$errors->first('ket')}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group row ml-2">
+                        <label class="col-sm-2" for="phone">Phone</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{$old('phone')}}">
+                            <small id="phone" style="color:red;" class="ml-2 form-text ">{{$errors->first('phone')}}</small>
                         </div>
                     </div>
                     <div class="form-group row ml-2">
                         <label class="col-sm-2" for="username">Username</label>
                         <div class="col-sm-10">
-                            <input type="text" name="username" id="username" class="form-control">
+                            <input type="text" name="username" id="username" class="form-control" value="{{$old('username')}}">
                             <small id="username" style="color:red;" class="ml-2 form-text ">{{$errors->first('username')}}</small>
                         </div>
                     </div>

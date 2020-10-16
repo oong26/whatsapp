@@ -53,7 +53,7 @@ class PasienController extends Controller
                             ->where('level.nama_level', 'not like', '%Admin%')
                             ->get();
             
-            $desa = Level::groupBy('wilayah')->get();
+            $desa = Desa::all();
             
             return view('pasien.add')->with('app_title', 'WhatsApp API')->with('title','Tambah Pasien')->with('bidan', $bidan)->with('desa', $desa);
         }
@@ -64,6 +64,7 @@ class PasienController extends Controller
 
     public function store(Request $req)
     {
+        // return $this->countHPL($req->tgl);
         if(Session::get('user_id') != null){
             $this->validate($req,[
                         'phone' => 'required'
@@ -92,6 +93,7 @@ class PasienController extends Controller
                             'alamat' => 'required',
                             'phone' => 'required',
                             'resep' => 'required',
+                            'kondisi' => 'required',
                             'bidan' => 'required'
                         ]);
                         
@@ -102,6 +104,8 @@ class PasienController extends Controller
                             'alamat' => $req->alamat,
                             'phone' => '62'.$req->phone,
                             'resep' => $req->resep,
+                            'status' => 1,
+                            'kondisi' => $req->kondisi,
                             'tgl_hpht' => $req->tgl,
                             'id_user' => $req->bidan,
                             'tgl_hpl' => $this->countHPL($req->tgl)
@@ -115,7 +119,8 @@ class PasienController extends Controller
                             'nama' => 'required|min:3|max:50',
                             'alamat' => 'required',
                             'phone' => 'required',
-                            'resep' => 'required'
+                            'resep' => 'required',
+                            'kondisi' => 'required'
                         ]);
 
                         DB::table('pasien')->insert([
@@ -125,6 +130,8 @@ class PasienController extends Controller
                             'alamat' => $req->alamat,
                             'phone' => '62'.$req->phone,
                             'resep' => $req->resep,
+                            'kondisi' => $req->kondisi,
+                            'status' => 1,
                             'tgl_hpht' => $req->tgl,
                             'id_user' => Session::get('user_id'),
                             'tgl_hpl' => $this->countHPL($req->tgl)
@@ -162,14 +169,19 @@ class PasienController extends Controller
         ];
         // $tgl_hpl = $hpht['tgl'] + 7;
         $tgl_hpl = $hpht['tgl'];
-        $bln_hpl = $hpht['bulan'] - 3;
+        // $bln_hpl = $hpht['bulan'] - 3;
+        $bln_hpl = $hpht['bulan'] + 9;
         $thn_hpl = $hpht['tahun'];
-        if($bln_hpl != 0){
+
+        if($bln_hpl > 12){
+            // $bln_hpl = '0'.substr($bln_hpl,1,2);
+            $bln_hpl = $bln_hpl - 12;
+            $bln_hpl = '0'.$bln_hpl;
             $thn_hpl = $thn_hpl + 1;
         }
-        else{
-            $bln_hpl = 12;
-        }
+        // else{
+        //     $bln_hpl = 12;
+        // }
 
         $hpl = [
             'hpht' => $hpht['date'],
@@ -223,11 +235,12 @@ class PasienController extends Controller
                 $this->validate($req,[
                     'id' => 'required',
                     'nik' => 'required|min:16|max:16',
-                    'kis' => 'required|unique:pasien',
+                    'kis' => 'required',
                     'nama' => 'required|min:3|max:50',
                     'alamat' => 'required',
                     'phone' => 'required',
                     'resep' => 'required',
+                    'kondisi' => 'required',
                     'status' => 'required'
                 ]);
 
@@ -280,9 +293,16 @@ class PasienController extends Controller
                     ]);
                 }
 
+                if($req->kondisi != null){
+                    DB::table('pasien')->where('id',$req->id)->update([
+                        'kondisi' => $req->kondisi,
+                        'updated_at' => now()
+                    ]);
+                }
+
                 if($req->bidan != null){
                     DB::table('pasien')->where('id',$req->id)->update([
-                        'id_bidan' => $req->bidan,
+                        'id_user' => $req->bidan,
                         'updated_at' => now()
                     ]);
                 }

@@ -39,6 +39,13 @@
                         </div>
                     </div>
                     <div class="form-group row ml-2">
+                        <label class="col-sm-2" for="phone">Phone</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="phone" id="phone" class="form-control" value="{{substr($item['phone'],2,12)}}">
+                            <small id="phone" style="color:red;" class="ml-2 form-text ">{{$errors->first('phone')}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group row ml-2">
                         <label class="col-sm-2" for="username">Username</label>
                         <div class="col-sm-10">
                             <input type="text" name="username" id="username" class="form-control" value="{{$item['username']}}">

@@ -59,7 +59,7 @@
                     <th class="text-center">Nama</th>
                     <th class="text-center">Alamat</th>
                     <th class="text-center">No.telp.</th>
-                    <th class="text-center">Resep</th>
+                    <th class="text-center">Pesan</th>
                     <th class="text-center">Tanggal HPHT</th>
                     <th class="text-center">Tanggal HPL</th>
                     <th class="text-center">Aksi</th>
@@ -72,7 +72,7 @@
                   <th class="text-center">Nama</th>
                   <th class="text-center">Alamat</th>
                   <th class="text-center">No.telp.</th>
-                  <th class="text-center">Resep</th>
+                  <th class="text-center">Pesan</th>
                   <th class="text-center">Tanggal HPHT</th>
                   <th class="text-center">Tanggal HPL</th>
                   <th class="text-center">Aksi</th>
