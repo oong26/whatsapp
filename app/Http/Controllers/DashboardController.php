@@ -85,7 +85,7 @@ class DashboardController extends Controller
             for($i=0;$i<count($pasien);$i++){
                 $no = $pasien[$i]['phone'];
                 $nama = $pasien[$i]['nama'];
-                $pesan = $nama.' '.$pasien[$i]['pesan'].'. Dengan resep dibawah ini : '.$pasien[$i]['resep']. ' Pesan diterima setiap jam 19.00.';
+                $pesan = 'Hallo '.$nama.'! '.$pasien[$i]['resep'];
                 
                 //Dinamis
                 $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
