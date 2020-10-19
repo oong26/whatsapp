@@ -88,7 +88,6 @@ class PasienController extends Controller
                         //jika user adalah super admin atau admin
                         $this->validate($req,[
                             'nik' => 'required|min:16|max:16|unique:pasien',
-                            'kis' => 'required|unique:pasien',
                             'nama' => 'required|min:3|max:50',
                             'alamat' => 'required',
                             'phone' => 'required',
@@ -115,7 +114,6 @@ class PasienController extends Controller
                         //jika user adalah bidan
                         $this->validate($req,[
                             'nik' => 'required|min:16|max:16|unique:pasien',
-                            'kis' => 'required|unique:pasien',
                             'nama' => 'required|min:3|max:50',
                             'alamat' => 'required',
                             'phone' => 'required',
@@ -235,7 +233,6 @@ class PasienController extends Controller
                 $this->validate($req,[
                     'id' => 'required',
                     'nik' => 'required|min:16|max:16',
-                    'kis' => 'required',
                     'nama' => 'required|min:3|max:50',
                     'alamat' => 'required',
                     'phone' => 'required',

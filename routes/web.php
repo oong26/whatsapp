@@ -100,6 +100,22 @@ Route::prefix('wewenang')->group(function(){
 
 });
 
+Route::prefix('perangkat')->group(function(){
+    
+    Route::get('', 'DeviceController@index');
+    
+    Route::get('tambah', 'DeviceController@add');
+
+    Route::post('store', 'DeviceController@store');
+    
+    Route::get('edit/{id}', 'DeviceController@edit');
+    
+    Route::get('delete/{id}', 'DeviceController@delete');
+
+    Route::post('update', 'DeviceController@update');
+
+});
+
 Route::prefix('waktu')->group(function(){
     
     Route::get('', 'WaktuController@index');

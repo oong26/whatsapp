@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use App\Level;
+use App\Device;
 
-class LevelController extends Controller
+class DeviceController extends Controller
 {
     public function index()
     {
         if(Session::get('user_id') != null){
-            $data = Level::all();
+            $data = Device::all();
             
-            return view('level.index')->with('app_title', 'Tape Labu')->with('title','Lihat Wewenang')->with('data', $data);
+            return view('device.index')->with('app_title', 'Tape Labu')->with('title','Lihat Perangkat')->with('data', $data);
         }
         else{
             return redirect('login');
@@ -24,7 +24,7 @@ class LevelController extends Controller
     public function add()
     {
         if(Session::get('user_id') != null){
-            return view('level.add')->with('app_title', 'Tape Labu')->with('title','Tambah Wewenang');
+            return view('device.add')->with('app_title', 'Tape Labu')->with('title','Tambah Perangkat');
         }
         else{
             return redirect('login');
@@ -35,24 +35,19 @@ class LevelController extends Controller
     {
         if(Session::get('user_id') != null){
             $this->validate($req,[
-                'wewenang' => 'required|min:3|max:50'
+                'device' => 'required'
             ]);
 
             try{
-                if($req->wilayah == null){
-                    DB::table('level')->insert([
-                        'nama_level' => $req->wewenang
-                    ]);
-                }
-                else{
-                    DB::table('level')->insert([
-                        'nama_level' => $req->wewenang,
-                        'wilayah' => $req->wilayah
-                    ]);
-                }
+                DB::table('device')->insert([
+                    'nama_device' => '62'.$req->device,
+                    'status' => 'unpaired',
+                    'id_user' => Session::get('user_id'),
+                    'hide' => 0
+                ]);
                 
                 alert()->success('Sukses', 'Berhasil menyimpan data');
-                return redirect('wewenang');
+                return redirect('perangkat');
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', 'Gagal');
@@ -62,16 +57,14 @@ class LevelController extends Controller
         else{
             return redirect('login');
         }
-        
-
     }
 
     public function edit($id)
     {
         if(Session::get('user_id') != null){
-            $data = Level::where('id_level', $id)->get();
+            $data = Device::where('id', $id)->get();
             
-            return view('level.edit')->with('app_title', 'Tape Labu')->with('title', 'Edit Wewenang')->with('data', $data);
+            return view('device.edit')->with('app_title', 'Tape Labu')->with('title', 'Edit Perangkat')->with('data', $data);
         }
         else{
             return redirect('login');
@@ -82,10 +75,10 @@ class LevelController extends Controller
     {
         if(Session::get('user_id') != null){
             try{
-                DB::table('level')->where('id_level', $id)->delete();
+                DB::table('device')->where('id', $id)->delete();
                 
                 alert()->success('Sukses', 'Berhasil menghapus data');
-                return redirect('wewenang');
+                return redirect('perangkat');
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', 'Gagal');
@@ -102,24 +95,16 @@ class LevelController extends Controller
         if(Session::get('user_id') != null){
             $this->validate($req,[
                 'id' => 'required',
-                'wewenang' => 'required|min:3|max:50'
+                'device' => 'required'
             ]);
 
             try{
-                if($req->wilayah == null){
-                    DB::table('level')->where('id_level',$req->id)->update([
-                        'nama_level' => $req->wewenang
-                    ]);
-                }
-                else{
-                    DB::table('level')->where('id_level',$req->id)->update([
-                        'nama_level' => $req->wewenang,
-                        'wilayah' => $req->wilayah
-                    ]);
-                }
+                DB::table('device')->where('id',$req->id)->update([
+                    'nama_device' => '62'.$req->device
+                ]);
                 
                 alert()->success('Sukses', 'Berhasil memperbarui data');
-                return redirect('wewenang');
+                return redirect('perangkat');
             }
             catch(\Illuminate\Database\QueryException $e){
                 alert()->error('Error', $e->getMessage());
