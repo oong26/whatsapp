@@ -88,7 +88,7 @@ class DashboardController extends Controller
                 $pesan = 'Hallo '.$nama.'! '.$pasien[$i]['resep'];
                 
                 //Dinamis
-                $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+                $r = $client->request('POST', 'http://37.44.244.54:8000/waapi/sendText', [
                         'form_params' => [
                         'id_device' => $device[0]['id'],
                         'to' => $no,
@@ -97,7 +97,7 @@ class DashboardController extends Controller
                 ]);
 
                 //Statik
-                // $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+                // $r = $client->request('POST', 'http://37.44.244.54:8000/waapi/sendText', [
                 //         'form_params' => [
                 //         'id_device' => '11',
                 //         'to' => $no,
@@ -128,7 +128,7 @@ class DashboardController extends Controller
                 $phone = $pasien[$i]['phone'];
                 $pesan = 'Hallo bidan '.$pasien[$i]['bidan'].'. Pasien anda yang bernama '.$pasien[$i]['nama'].' akan melakukan persalinan 10 hari lagi.';
                 if($hpl == substr(now(),0,10)){
-                    $r = $client->request('POST', 'http://localhost:8000/waapi/sendText', [
+                    $r = $client->request('POST', 'http://37.44.244.54:8000/waapi/sendText', [
                             'form_params' => [
                             'id_device' => $device[0]['id'],
                             'to' => $phone,
@@ -174,7 +174,7 @@ class DashboardController extends Controller
                     $nama = $pasien[$i]['nama'];
                     
                     //Dinamis
-                    $r = $client->request('POST', 'http://localhost:8000/waapi/sendFile', [
+                    $r = $client->request('POST', 'http://37.44.244.54:8000/waapi/sendFile', [
                             'form_params' => [
                             'id_device' => $device[0]['id'],
                             'to' => $no,

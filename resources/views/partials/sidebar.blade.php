@@ -140,7 +140,7 @@
       <div id="collapseWA" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Pengaturan WhatsApp</h6>
-          <a class="collapse-item" href="http://localhost:8000/" target="_blank">Server</a>
+          <a class="collapse-item" href="http://37.44.244.54:8000/" target="_blank">Server</a>
           <a class="collapse-item" href="{{url('perangkat')}}">Perangkat</a>
           <a class="collapse-item" href="{{url('waktu')}}">Waktu penjadwalan</a>
         </div>
