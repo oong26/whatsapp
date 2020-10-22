@@ -18,6 +18,9 @@ Route::get('/', 'DashboardController@index');
 
 Route::get('dashboard', 'DashboardController@index');
 
+Route::get('chat', 'DashboardController@chat');
+Route::get('chat/{id}', 'DashboardController@chatDetail');
+
 Route::get('login', 'LoginController@index');
 
 Route::post('login-process', 'LoginController@login');

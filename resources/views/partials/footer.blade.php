@@ -99,6 +99,28 @@
       window.location.href = '{{url('pasien')}}';
     }
   }
+
+  $(document).ready(function (){
+    $('.showDetail').click(function () {
+      let url = $(this).attr('data-url')
+      $.ajax({
+        type: "get",
+        url: url,
+        dataType: "json",
+        success: function (response) {
+          $('#tujuan').html(response.tujuan.replace('@c.us',''))
+          $('#pesan').html(response.keterangan)
+          var terkirim = response.terkirim
+          var mengirim = response.mengirim
+          if(terkirim == 1 && mengirim == 0)
+            $('#status').html('Terkirim')
+          else
+            $('#status').html('Gagal')
+          $('#waktu').html(response.waktu)
+        }
+      });
+    });
+  })
   </script>
 
 </body>
